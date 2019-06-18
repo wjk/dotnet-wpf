@@ -384,16 +384,27 @@ namespace MS.Internal.AppModel
         InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown),
         Guid(IID.ShellLinkDataList),
     ]
+<<<<<<< HEAD
     internal interface IShellLinkDataList
+=======
+    internal interface IShellLinkDataListW
+>>>>>>> b99fc6ea... Add FlagsToEnable property to JumpTask to allow JumpList to set the SHELL_LINK_DATA_FLAGS enumeration on the shell link. This enables various scenarios such as e.g. being able to request elevation of a JumpTask.
     {
         [PreserveSig]
         Int32 AddDataBlock(IntPtr pDataBlock);
 
         [PreserveSig]
+<<<<<<< HEAD
         Int32 CopyDataBlock(uint dwSig, out IntPtr ppDataBlock);
 
         [PreserveSig]
         Int32 RemoveDataBlock(uint dwSig);
+=======
+        Int32 CopyDataBlock(UInt32 dwSig, out IntPtr ppDataBlock);
+
+        [PreserveSig]
+        Int32 RemoveDataBlock(UInt32 dwSig);
+>>>>>>> b99fc6ea... Add FlagsToEnable property to JumpTask to allow JumpList to set the SHELL_LINK_DATA_FLAGS enumeration on the shell link. This enables various scenarios such as e.g. being able to request elevation of a JumpTask.
 
         void GetFlags(out uint pdwFlags);
         void SetFlags(uint dwFlags);

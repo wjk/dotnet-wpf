@@ -961,7 +961,6 @@ namespace System.Windows.Shell
 				flags |= flagToEnable;
 			}
 			shellLinkDataList.SetFlags(flags);
-		}
 
                 IPropertyStore propStore = (IPropertyStore)link;
                 var pv = new PROPVARIANT();
