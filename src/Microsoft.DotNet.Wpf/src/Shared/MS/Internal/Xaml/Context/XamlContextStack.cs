@@ -15,8 +15,6 @@ namespace MS.Internal.Xaml.Context
     //  2) it is <T>, and avoids activator.createinstance with the creationDelegate
     class XamlContextStack<T> where T : XamlFrame
     {
-        private int _depth;
-        T _currentFrame;
         T _recycledFrame;
         Func<T> _creationDelegate;
 
@@ -24,7 +22,7 @@ namespace MS.Internal.Xaml.Context
         {
             _creationDelegate = creationDelegate;
             Grow();
-            _depth = 0;
+            Depth = 0;
             Debug.Assert(CurrentFrame != null);
             Debug.Assert(CurrentFrame.Depth == Depth);
         }
@@ -32,10 +30,10 @@ namespace MS.Internal.Xaml.Context
         public XamlContextStack(XamlContextStack<T> source, bool copy)
         {
             _creationDelegate = source._creationDelegate;
-            _depth = source.Depth;
+            Depth = source.Depth;
             if (!copy)
             {
-                _currentFrame = source.CurrentFrame;
+                CurrentFrame = source.CurrentFrame;
             }
             else
             {
@@ -44,9 +42,9 @@ namespace MS.Internal.Xaml.Context
                 while (iteratorFrame != null)
                 {
                     T newFrame = (T)iteratorFrame.Clone();
-                    if (_currentFrame == null)
+                    if (CurrentFrame == null)
                     {
-                        _currentFrame = newFrame;
+                        CurrentFrame = newFrame;
                     }
                     if (lastFrameInNewStack != null)
                     {
@@ -61,29 +59,26 @@ namespace MS.Internal.Xaml.Context
         //allocate a new frame as the new currentFrame;
         private void Grow()
         {
-            T lastFrame = _currentFrame;
-            _currentFrame = _creationDelegate();
-            _currentFrame.Previous = lastFrame;
+            T lastFrame = CurrentFrame;
+            CurrentFrame = _creationDelegate();
+            CurrentFrame.Previous = lastFrame;
         }
 
-        public T CurrentFrame
-        {
-            get { return _currentFrame; }
-        }
+        public T CurrentFrame { get; private set; }
 
         public T PreviousFrame
         {
-            get { return (T)_currentFrame.Previous; }
+            get { return (T)CurrentFrame.Previous; }
         }
 
         public T PreviousPreviousFrame
         {
-            get { return (T)_currentFrame.Previous.Previous; }
+            get { return (T)CurrentFrame.Previous.Previous; }
         }
 
         public T GetFrame(int depth)
         {
-            T iteratorFrame = _currentFrame;
+            T iteratorFrame = CurrentFrame;
             Debug.Assert(iteratorFrame != null);
             while (iteratorFrame.Depth > depth)
             {
@@ -102,12 +97,12 @@ namespace MS.Internal.Xaml.Context
             }
             else //use recycled frame
             {
-                T lastFrame = _currentFrame;
-                _currentFrame = _recycledFrame;
+                T lastFrame = CurrentFrame;
+                CurrentFrame = _recycledFrame;
                 _recycledFrame = (T)_recycledFrame.Previous;
-                _currentFrame.Previous = lastFrame;
+                CurrentFrame.Previous = lastFrame;
             }
-            _depth++;
+            Depth++;
             Debug.Assert(CurrentFrame.Depth == Depth);
         }
 
@@ -115,20 +110,16 @@ namespace MS.Internal.Xaml.Context
         // linked list to the recylced linked list and call .Reset
         public void PopScope()
         {
-            _depth--;
-            T frameToRecycle = _currentFrame;
-            _currentFrame = (T)_currentFrame.Previous;
+            Depth--;
+            T frameToRecycle = CurrentFrame;
+            CurrentFrame = (T)CurrentFrame.Previous;
             frameToRecycle.Previous = _recycledFrame;
             _recycledFrame = frameToRecycle;
             frameToRecycle.Reset();
             Debug.Assert(CurrentFrame.Depth == Depth);
         }
 
-        public int Depth
-        {
-            get { return _depth; }
-            set { _depth = value; }
-        }
+        public int Depth { get; set; }
 
         //In case the stack needs to survive and you don't want to keep the recylced frames around.
         public void Trim()
@@ -141,9 +132,9 @@ namespace MS.Internal.Xaml.Context
             get
             {
                 StringBuilder sb = new StringBuilder();
-                T iteratorFrame = _currentFrame;
-                sb.AppendLine("Stack: " + (_currentFrame == null ? -1 : _currentFrame.Depth + 1).ToString(CultureInfo.InvariantCulture) + " frames");
-                ShowFrame(sb, _currentFrame);
+                T iteratorFrame = CurrentFrame;
+                sb.AppendLine("Stack: " + (CurrentFrame == null ? -1 : CurrentFrame.Depth + 1).ToString(CultureInfo.InvariantCulture) + " frames");
+                ShowFrame(sb, CurrentFrame);
                 return sb.ToString();
             }
         }
