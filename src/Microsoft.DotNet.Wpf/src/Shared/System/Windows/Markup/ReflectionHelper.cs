@@ -137,7 +137,7 @@ namespace System.Xaml
 
         internal static bool IsNullableType(Type type)
         {
-            return (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>)));
+            return type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(Nullable<>));
         }
 
         internal static bool IsInternalType(Type type)
