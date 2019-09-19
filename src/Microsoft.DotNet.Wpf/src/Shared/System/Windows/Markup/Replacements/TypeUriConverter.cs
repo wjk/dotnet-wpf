@@ -15,7 +15,7 @@ namespace System.Xaml.Replacements
     internal class TypeUriConverter : TypeConverter
     {
         public TypeUriConverter()
-        { 
+        {
         }
 
         /// <inheritdoc />
@@ -32,7 +32,7 @@ namespace System.Xaml.Replacements
         /// <inheritdoc />
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
-            return 
+            return
                 destinationType == typeof(InstanceDescriptor) ||
                 destinationType == typeof(string) ||
                 destinationType == typeof(Uri);
@@ -52,17 +52,17 @@ namespace System.Xaml.Replacements
 
                 if (destinationType == typeof(InstanceDescriptor))
                 {
-                    var ci = 
+                    var ci =
                         typeof(Uri)
                         .GetConstructor(
-                            BindingFlags.Public | BindingFlags.Instance, 
-                            null, 
-                            new Type[] { typeof(string), typeof(UriKind) }, 
+                            BindingFlags.Public | BindingFlags.Instance,
+                            null,
+                            new Type[] { typeof(string), typeof(UriKind) },
                             null);
-                    return 
+                    return
                         new InstanceDescriptor(
-                            ci, 
-                            new object[] { uri.OriginalString, uriKind});
+                            ci,
+                            new object[] { uri.OriginalString, uriKind });
                 }
 
                 if (destinationType == typeof(string))
