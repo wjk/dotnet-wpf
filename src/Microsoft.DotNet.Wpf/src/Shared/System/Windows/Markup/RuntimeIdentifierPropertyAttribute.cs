@@ -27,7 +27,7 @@ namespace System.Windows.Markup
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     [SRCS.TypeForwardedFrom("WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35")]
-    public sealed class RuntimeNamePropertyAttribute: Attribute
+    public sealed class RuntimeNamePropertyAttribute : Attribute
     {
         /// <summary/>
         public RuntimeNamePropertyAttribute(string name)

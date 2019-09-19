@@ -10,8 +10,8 @@
 //              For example a filepath variable might control what part of the file system the
 //              code gets access to.
 
-using System ; 
-using System.Security ;
+using System;
+using System.Security;
 
 #if WINDOWS_BASE
     using MS.Internal.WindowsBase;
@@ -43,23 +43,23 @@ namespace MS.Internal
     internal struct SecurityCriticalDataForSet<T>
     {
         internal SecurityCriticalDataForSet(T value)
-        { 
-            _value = value; 
+        {
+            _value = value;
         }
 
-        internal T Value 
+        internal T Value
         {
-        #if DEBUG
+#if DEBUG
             [System.Diagnostics.DebuggerStepThrough]
-        #endif
+#endif
             get
             {
                 return _value;
             }
 
-        #if DEBUG
+#if DEBUG
             [System.Diagnostics.DebuggerStepThrough]
-        #endif
+#endif
             set
             {
                 _value = value;

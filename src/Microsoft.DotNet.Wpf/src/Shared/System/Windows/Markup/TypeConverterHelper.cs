@@ -147,7 +147,7 @@ namespace System.Windows.Markup
                             !ReflectionHelper.IsInternalAllowedOnType(converterType))
                         {
 #endif
-                            converterType = null;
+                        converterType = null;
 #if PBTCOMPILER
                         }
 #endif

@@ -77,7 +77,7 @@ namespace System.Xaml
         }
 #endif
 
-#region Type
+        #region Type
         /// <summary>
         /// Parse and get the type of the passed in string
         /// </summary>
@@ -222,8 +222,8 @@ namespace System.Xaml
                 return ictp.GetCustomType();
         }
 #endif
-        
-#endregion Type
+
+        #endregion Type
 
         #region Attributes
 
@@ -386,14 +386,14 @@ namespace System.Xaml
             return attrValue;
         }
 
-#endregion Attributes
+        #endregion Attributes
 
-#region Assembly Loading
+        #region Assembly Loading
 
 #if !PBTCOMPILER
         //
         // Clean up the cache entry for the given assembly, so that it can be reloaded.
-         //
+        //
         internal static void ResetCacheForAssembly(string assemblyName)
         {
             string assemblyNameLookup = assemblyName.ToUpper(CultureInfo.InvariantCulture);

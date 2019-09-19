@@ -170,7 +170,7 @@ namespace System.Windows.Markup
 
             bool more = Reader.Read(); //passed as ref arg to ReadStartElement and ReadEndElement
             bool result = false;
-          
+
             while (more)
             {
                 switch (Reader.NodeType)
@@ -1965,7 +1965,7 @@ namespace System.Windows.Markup
                     _names[elementName] = null; // we don't care about value, just key
                 }
             }
-}
+        }
 
         class PreserveItemSet
         {

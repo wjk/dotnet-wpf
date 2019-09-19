@@ -24,13 +24,13 @@ namespace MS.Internal.Xaml.Parser
         private bool _initializing;
         private StringBuilder _startCharactersStringBuilder;
         private StringBuilder _endCharactersStringBuilder;
-        
+
         internal SpecialBracketCharacters()
         {
             BeginInit();
         }
 
-        internal SpecialBracketCharacters(IReadOnlyDictionary<char,char> attributeList)
+        internal SpecialBracketCharacters(IReadOnlyDictionary<char, char> attributeList)
         {
             BeginInit();
             if (attributeList != null && attributeList.Count > 0)
@@ -52,14 +52,14 @@ namespace MS.Internal.Xaml.Parser
             }
         }
 
-        private void Tokenize(IReadOnlyDictionary<char,char> attributeList)
+        private void Tokenize(IReadOnlyDictionary<char, char> attributeList)
         {
             if (_initializing)
             {
                 foreach (char openingBracket in attributeList.Keys)
                 {
                     char closingBracket = attributeList[openingBracket];
-                    string errorMessage = string.Empty; 
+                    string errorMessage = string.Empty;
                     if (IsValidBracketCharacter(openingBracket, closingBracket))
                     {
                         _startCharactersStringBuilder.Append(openingBracket);

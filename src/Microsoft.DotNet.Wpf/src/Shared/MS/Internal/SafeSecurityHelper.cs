@@ -145,10 +145,10 @@ namespace System.Xaml
                 CultureInfo curCulture = curAsmName.CultureInfo;
                 byte[] curKeyToken = curAsmName.GetPublicKeyToken();
 
-                if ( (String.Compare(curAsmName.Name, assemblyName.Name, true, TypeConverterHelper.InvariantEnglishUS) == 0) &&
+                if ((String.Compare(curAsmName.Name, assemblyName.Name, true, TypeConverterHelper.InvariantEnglishUS) == 0) &&
                      (reqVersion == null || reqVersion.Equals(curVersion)) &&
                      (reqCulture == null || reqCulture.Equals(curCulture)) &&
-                     (reqKeyToken == null || IsSameKeyToken(reqKeyToken, curKeyToken) ) )
+                     (reqKeyToken == null || IsSameKeyToken(reqKeyToken, curKeyToken)))
                 {
                     return assemblies[i];
                 }
@@ -167,12 +167,12 @@ namespace System.Xaml
                     _assemblies = new Dictionary<object, AssemblyName>();
                 }
                 else
-	            {
+                {
                     if (_assemblies.TryGetValue(key, out result))
                     {
                         return result;
                     }
-	            }
+                }
                 //
                 // We use AssemblyName ctor here because GetName demands FileIOPermission
                 // and does load more than just the required information.
@@ -185,7 +185,7 @@ namespace System.Xaml
                 {
                     // Make sure we clean up the cache if/when this dynamic assembly is GCed
                     GCNotificationToken.RegisterCallback(_cleanupCollectedAssemblies, null);
-                    _isGCCallbackPending  = true;
+                    _isGCCallbackPending = true;
                 }
                 return result;
             }
@@ -251,32 +251,32 @@ namespace System.Xaml
 #endif
         static bool IsSameKeyToken(byte[] reqKeyToken, byte[] curKeyToken)
         {
-           bool isSame = false;
+            bool isSame = false;
 
-           if (reqKeyToken == null && curKeyToken == null)
-           {
-               // Both Key Tokens are not set, treat them as same.
-               isSame = true;
-           }
-           else if (reqKeyToken != null && curKeyToken != null)
-           {
-               // Both KeyTokens are set.
-               if (reqKeyToken.Length == curKeyToken.Length)
-               {
-                   isSame = true;
+            if (reqKeyToken == null && curKeyToken == null)
+            {
+                // Both Key Tokens are not set, treat them as same.
+                isSame = true;
+            }
+            else if (reqKeyToken != null && curKeyToken != null)
+            {
+                // Both KeyTokens are set.
+                if (reqKeyToken.Length == curKeyToken.Length)
+                {
+                    isSame = true;
 
-                   for (int i = 0; i < reqKeyToken.Length; i++)
-                   {
-                      if (reqKeyToken[i] != curKeyToken[i])
-                      {
-                         isSame = false;
-                         break;
-                      }
-                   }
-               }
-           }
+                    for (int i = 0; i < reqKeyToken.Length; i++)
+                    {
+                        if (reqKeyToken[i] != curKeyToken[i])
+                        {
+                            isSame = false;
+                            break;
+                        }
+                    }
+                }
+            }
 
-           return isSame;
+            return isSame;
         }
 #endif //!REACHFRAMEWORK
 
@@ -381,7 +381,7 @@ namespace System.Xaml
     class WeakRefKey : WeakReference
     {
         public WeakRefKey(object target)
-            :base(target)
+            : base(target)
         {
             Debug.Assert(target != null);
             _hashCode = target.GetHashCode();
