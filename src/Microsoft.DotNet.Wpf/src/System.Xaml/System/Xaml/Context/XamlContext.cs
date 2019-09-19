@@ -251,7 +251,7 @@ namespace MS.Internal.Xaml
             return GetXamlType(typeName, returnUnknownTypesOnFailure, false);
         }
 
-        internal XamlType GetXamlType(XamlTypeName typeName, bool returnUnknownTypesOnFailure, 
+        internal XamlType GetXamlType(XamlTypeName typeName, bool returnUnknownTypesOnFailure,
             bool skipVisibilityCheck)
         {
             Debug.Assert(typeName != null, "typeName cannot be null and should have been checked before now");
@@ -288,7 +288,7 @@ namespace MS.Internal.Xaml
             }
         }
 
-        private string ResolveXamlNameNS(XamlName name) 
+        private string ResolveXamlNameNS(XamlName name)
         {
             return name.Namespace ?? FindNamespaceByPrefix(name.Prefix);
         }

@@ -11,18 +11,18 @@ using MS.Internal.Xaml.Context;
 
 namespace MS.Internal.Xaml
 {
-internal class ServiceProviderContext : ITypeDescriptorContext,  // derives from IServiceProvider
-                                  IServiceProvider,
-                                  IXamlTypeResolver,
-                                  IUriContext,
-                                  IAmbientProvider,
-                                  IXamlSchemaContextProvider,
-                                  IRootObjectProvider,
-                                  IXamlNamespaceResolver,
-                                  IProvideValueTarget,
-                                  IXamlNameResolver,
-                                  IDestinationTypeProvider,
-                                  IXamlLineInfo
+    internal class ServiceProviderContext : ITypeDescriptorContext,  // derives from IServiceProvider
+                                      IServiceProvider,
+                                      IXamlTypeResolver,
+                                      IUriContext,
+                                      IAmbientProvider,
+                                      IXamlSchemaContextProvider,
+                                      IRootObjectProvider,
+                                      IXamlNamespaceResolver,
+                                      IProvideValueTarget,
+                                      IXamlNameResolver,
+                                      IDestinationTypeProvider,
+                                      IXamlLineInfo
     {
         ObjectWriterContext _xamlContext;
 

@@ -6,7 +6,7 @@ using System.Xaml;
 
 namespace MS.Internal.Xaml.Context
 {
-    internal class XamlObjectWriterFactory: IXamlObjectWriterFactory
+    internal class XamlObjectWriterFactory : IXamlObjectWriterFactory
     {
         XamlSavedContext _savedContext;
         XamlObjectWriterSettings _parentSettings;
@@ -30,6 +30,6 @@ namespace MS.Internal.Xaml.Context
         }
 
         #endregion
-   
+
     }
 }

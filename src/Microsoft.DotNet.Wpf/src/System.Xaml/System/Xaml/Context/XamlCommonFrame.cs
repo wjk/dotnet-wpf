@@ -7,7 +7,7 @@ using System.Xaml;
 
 namespace MS.Internal.Xaml.Context
 {
-    internal abstract class XamlCommonFrame: XamlFrame
+    internal abstract class XamlCommonFrame : XamlFrame
     {
         internal Dictionary<string, string> _namespaces;
 
@@ -20,7 +20,7 @@ namespace MS.Internal.Xaml.Context
                 return _namespaces;
             }
         }
-        
+
         public XamlCommonFrame() : base()
         {
         }
@@ -45,7 +45,7 @@ namespace MS.Internal.Xaml.Context
                 _namespaces.Clear();
             }
         }
-        
+
         public XamlType XamlType { get; set; }
         public XamlMember Member { get; set; }
 

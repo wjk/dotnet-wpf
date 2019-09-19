@@ -156,7 +156,7 @@ namespace MS.Internal.Xaml.Context
         {
             get { return _nameScopeDictionaryList; }
         }
-        
+
         public List<String> NeededNames
         {
             get { return _names; }

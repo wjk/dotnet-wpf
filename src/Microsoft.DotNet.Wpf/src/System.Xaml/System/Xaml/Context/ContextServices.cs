@@ -44,6 +44,6 @@ namespace MS.Internal.Xaml.Context
                 // and items in a collection/diction (will return null - IPVT returns null in 3.0 for collections/dictionaries).
                 return parentProperty.UnderlyingMember;
             }
-        }        
+        }
     }
 }

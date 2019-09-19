@@ -37,7 +37,7 @@ namespace MS.Internal.Xaml.Context
         // and remove those dependencies. But we still want to be able to inform MEs/TCs that
         // the named objects they're getting aren't actually fully initialized. So we save this list
         // of incompletely initialized objects at the point we start completing references.
-        HashSet <object> _uninitializedObjectsAtParseEnd;
+        HashSet<object> _uninitializedObjectsAtParseEnd;
 
         public NameFixupGraph()
         {
@@ -56,7 +56,7 @@ namespace MS.Internal.Xaml.Context
             // Need to special case a deferred ProvideValue at the root, because it has no parent
             if (fixupToken.Target.Property == null)
             {
-                Debug.Assert(fixupToken.Target.Instance == null && 
+                Debug.Assert(fixupToken.Target.Instance == null &&
                     fixupToken.Target.InstanceType == null &&
                     fixupToken.FixupType == FixupType.MarkupExtensionFirstRun);
                 Debug.Assert(_deferredRootProvideValue == null);
@@ -91,7 +91,7 @@ namespace MS.Internal.Xaml.Context
                 foreach (string name in fixupToken.NeededNames)
                 {
                     AddToMultiDict(_dependenciesByName, name, fixupToken);
-                }   
+                }
             }
         }
 
@@ -183,7 +183,7 @@ namespace MS.Internal.Xaml.Context
                 while (i < nameDependencies.Count)
                 {
                     token = nameDependencies[i];
-                    
+
                     // The same name can occur in multiple namescopes, so we need to make sure that
                     // this named object is visible in the scope of the token.
                     object resolvedName = token.ResolveName(name);
@@ -421,7 +421,7 @@ namespace MS.Internal.Xaml.Context
             }
             alreadyTraversed.Add(inEdge);
             FrugalObjectList<NameFixupToken> outEdges;
-            if (inEdge.ReferencedObject == null || 
+            if (inEdge.ReferencedObject == null ||
                 !_dependenciesByParentObject.TryGetValue(inEdge.ReferencedObject, out outEdges))
             {
                 // No dependencies, we're done with this subgraph

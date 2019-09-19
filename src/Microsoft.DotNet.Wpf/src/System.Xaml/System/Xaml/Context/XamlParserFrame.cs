@@ -9,7 +9,7 @@ using MS.Internal.Xaml.Parser;
 
 namespace MS.Internal.Xaml.Context
 {
-    internal class XamlParserFrame: XamlCommonFrame
+    internal class XamlParserFrame : XamlCommonFrame
     {
         public override void Reset()
         {
@@ -25,7 +25,7 @@ namespace MS.Internal.Xaml.Context
             EscapeCharacterMapForMarkupExtension = null;
             BracketModeParseParameters = null;
         }
-        
+
         public XamlType PreviousChildType { get; set; }
         public int CtorArgCount { get; set; }
         public bool ForcedToUseConstructor { get; set; }
