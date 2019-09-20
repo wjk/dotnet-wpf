@@ -2,15 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-//
-//  Microsoft Windows Client Platform
-//
-//
 //  Contents:  Service for providing and finding custom serialization for
 //             value and value like types.
-//
-//  Created:   04/28/2005 Microsoft
-//
 
 using System.Collections;
 using System.Collections.Generic;
