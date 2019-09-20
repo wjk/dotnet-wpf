@@ -4,7 +4,7 @@
 
 namespace System.Windows.Markup
 {
-   [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
     public sealed class XamlSetTypeConverterAttribute : Attribute
     {
         public XamlSetTypeConverterAttribute(string xamlSetTypeConverterHandler)
