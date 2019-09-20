@@ -31,7 +31,7 @@ namespace System.Xaml
             _endOfStreamNode = new XamlNode(XamlNode.InternalNodeType.EndOfStream);
             _writer = new WriterDelegate(Add, AddLineInfo, schemaContext);
         }
-        
+
         public XamlReader Reader
         {
             get
@@ -87,7 +87,7 @@ namespace System.Xaml
                 _reader.HasLineInfo = true;
             }
         }
-        
+
         private XamlNode Next()
         {
             XamlNode node;

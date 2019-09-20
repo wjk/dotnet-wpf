@@ -13,7 +13,7 @@ namespace System.Xaml
         XamlNodeAddDelegate _addDelegate;
         XamlLineInfoAddDelegate _addLineInfoDelegate;
         XamlSchemaContext _schemaContext;
-        
+
         public WriterDelegate(XamlNodeAddDelegate add, XamlLineInfoAddDelegate addlineInfoDelegate, XamlSchemaContext xamlSchemaContext)
         {
             _addDelegate = add;

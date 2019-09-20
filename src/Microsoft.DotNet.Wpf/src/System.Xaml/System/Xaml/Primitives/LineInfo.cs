@@ -27,7 +27,7 @@ namespace System.Xaml
 
         public int LinePosition
         {
-            get { return _linePosition; }            
+            get { return _linePosition; }
         }
         #endregion
     }

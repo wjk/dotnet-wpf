@@ -29,9 +29,9 @@ namespace System.Xaml
         XamlWriter _writer;
 
         bool _wrappedReaderHasLineInfo;
-        int _lineNumber=0;
-        int _linePosition=0;
-        
+        int _lineNumber = 0;
+        int _linePosition = 0;
+
         Thread _thread;
         Exception _caughtException;
 
@@ -64,7 +64,7 @@ namespace System.Xaml
             _writer = new WriterDelegate(xamlNodeAddDelegate, lineInfoAddDelegate, _wrappedReader.SchemaContext);
 
             XamlNodeNextDelegate xamlNodeNextDelegate;
-            if(_wrappedReaderHasLineInfo)
+            if (_wrappedReaderHasLineInfo)
             {
                 xamlNodeNextDelegate = new XamlNodeNextDelegate(Next_ProcessLineInfo);
             }
