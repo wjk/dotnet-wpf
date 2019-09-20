@@ -2,14 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-//
-//  Microsoft Windows Client Platform
-//
-//
 //  Description: Describes what type a markup extension can return.
-//
-//  Created:     11/17/2005
-//
 
 namespace System.Windows.Markup
 {
