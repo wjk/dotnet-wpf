@@ -2,13 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-//
-//  Microsoft Windows Client Platform
-//
-//
 //  Description: Specifies which property of a class should be written as the
 //               direct content of the class when written to XAML.
-//
 
 using System.Runtime.CompilerServices;
 
@@ -19,7 +14,7 @@ namespace System.Windows.Markup
     /// An attribute that specifies which property the direct content of a XAML
     /// element should be associated with.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple=false, Inherited=true)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     [TypeForwardedFrom("WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35")]
     public sealed class ContentPropertyAttribute : Attribute
     {
