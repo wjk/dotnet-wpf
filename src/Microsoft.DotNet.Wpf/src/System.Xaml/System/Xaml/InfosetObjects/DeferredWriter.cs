@@ -108,27 +108,27 @@ namespace System.Xaml
             _handled = false;
             switch (_mode)
             {
-            case DeferringMode.Off:
-                break;
+                case DeferringMode.Off:
+                    break;
 
-            case DeferringMode.TemplateReady:
-                throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteEndObject"));
+                case DeferringMode.TemplateReady:
+                    throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteEndObject"));
 
-            case DeferringMode.TemplateDeferring:
-                _deferredWriter.WriteEndObject();
-                _handled = true;
-                _deferredTreeDepth -= 1;
+                case DeferringMode.TemplateDeferring:
+                    _deferredWriter.WriteEndObject();
+                    _handled = true;
+                    _deferredTreeDepth -= 1;
 
-                if (_deferredTreeDepth == 0)
-                {
-                    _deferredWriter.Close();
-                    _deferredWriter = null;
-                    _mode = DeferringMode.TemplateReady;
-                }
-                break;
+                    if (_deferredTreeDepth == 0)
+                    {
+                        _deferredWriter.Close();
+                        _deferredWriter = null;
+                        _mode = DeferringMode.TemplateReady;
+                    }
+                    break;
 
-            default:
-                throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteEndObject"));
+                default:
+                    throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteEndObject"));
             }
         }
 
@@ -137,26 +137,26 @@ namespace System.Xaml
             _handled = false;
             switch (_mode)
             {
-            case DeferringMode.Off:
-                if (property.DeferringLoader != null)
-                {
-                    _mode = DeferringMode.TemplateStarting;
+                case DeferringMode.Off:
+                    if (property.DeferringLoader != null)
+                    {
+                        _mode = DeferringMode.TemplateStarting;
 
-                    // We assume in WriteValue that this property can never be multi-valued
-                    Debug.Assert(!property.IsDirective && !property.IsUnknown);
-                }
-                break;
+                        // We assume in WriteValue that this property can never be multi-valued
+                        Debug.Assert(!property.IsDirective && !property.IsUnknown);
+                    }
+                    break;
 
-            case DeferringMode.TemplateReady:
-                throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteMember"));
+                case DeferringMode.TemplateReady:
+                    throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteMember"));
 
-            case DeferringMode.TemplateDeferring:
-                _deferredWriter.WriteStartMember(property);
-                _handled = true;
-                break;
+                case DeferringMode.TemplateDeferring:
+                    _deferredWriter.WriteStartMember(property);
+                    _handled = true;
+                    break;
 
-            default:
-                throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteMember"));
+                default:
+                    throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteMember"));
             }
         }
 
@@ -165,19 +165,19 @@ namespace System.Xaml
             _handled = false;
             switch (_mode)
             {
-            case DeferringMode.Off:
-                break;
+                case DeferringMode.Off:
+                    break;
 
-            case DeferringMode.TemplateReady:
-                throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteEndMember"));
+                case DeferringMode.TemplateReady:
+                    throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteEndMember"));
 
-            case DeferringMode.TemplateDeferring:
-                _deferredWriter.WriteEndMember();
-                _handled = true;
-                break;
+                case DeferringMode.TemplateDeferring:
+                    _deferredWriter.WriteEndMember();
+                    _handled = true;
+                    break;
 
-            default:
-                throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteEndMember"));
+                default:
+                    throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteEndMember"));
             }
         }
 
@@ -186,61 +186,61 @@ namespace System.Xaml
             _handled = false;
             switch (_mode)
             {
-            case DeferringMode.Off:
-                break;
+                case DeferringMode.Off:
+                    break;
 
-            case DeferringMode.TemplateReady:
-                throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteValue"));
+                case DeferringMode.TemplateReady:
+                    throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteValue"));
 
-            case DeferringMode.TemplateStarting:
-                // This handles the case of SM template; V object; EM
-                Debug.Assert(_deferredTreeDepth == 0);
-                if (value is XamlNodeList)
-                {
-                    _deferredList = (XamlNodeList)value;
-                    _mode = DeferringMode.TemplateReady;
+                case DeferringMode.TemplateStarting:
+                    // This handles the case of SM template; V object; EM
+                    Debug.Assert(_deferredTreeDepth == 0);
+                    if (value is XamlNodeList)
+                    {
+                        _deferredList = (XamlNodeList)value;
+                        _mode = DeferringMode.TemplateReady;
+                        _handled = true;
+                    }
+                    else
+                    {
+                        StartDeferredList();
+                        _mode = DeferringMode.TemplateDeferring;
+                        goto case DeferringMode.TemplateDeferring;
+                    }
+                    break;
+
+                case DeferringMode.TemplateDeferring:
+                    _deferredWriter.WriteValue(value);
                     _handled = true;
-                }
-                else
-                {
-                    StartDeferredList();
-                    _mode = DeferringMode.TemplateDeferring;
-                    goto case DeferringMode.TemplateDeferring;
-                }
-                break;
+                    break;
 
-            case DeferringMode.TemplateDeferring:
-                _deferredWriter.WriteValue(value);
-                _handled = true;
-                break;
-
-            default:
-                throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteValue"));
+                default:
+                    throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteValue"));
             }
         }
 
-        public override void  WriteNamespace(NamespaceDeclaration namespaceDeclaration)
+        public override void WriteNamespace(NamespaceDeclaration namespaceDeclaration)
         {
             switch (_mode)
             {
-            case DeferringMode.Off:
-                return;
+                case DeferringMode.Off:
+                    return;
 
-            case DeferringMode.TemplateReady:
-                throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteNamespace"));
+                case DeferringMode.TemplateReady:
+                    throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, "WriteNamespace"));
 
-            case DeferringMode.TemplateStarting:
-                StartDeferredList();
-                _mode = DeferringMode.TemplateDeferring;
-                goto case DeferringMode.TemplateDeferring;
+                case DeferringMode.TemplateStarting:
+                    StartDeferredList();
+                    _mode = DeferringMode.TemplateDeferring;
+                    goto case DeferringMode.TemplateDeferring;
 
-            case DeferringMode.TemplateDeferring:
-                _deferredWriter.WriteNamespace(namespaceDeclaration);
-                _handled = true;
-                break;
+                case DeferringMode.TemplateDeferring:
+                    _deferredWriter.WriteNamespace(namespaceDeclaration);
+                    _handled = true;
+                    break;
 
-            default:
-                throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteNamespace"));
+                default:
+                    throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), "WriteNamespace"));
             }
         }
 
@@ -277,26 +277,26 @@ namespace System.Xaml
         {
             switch (_mode)
             {
-            case DeferringMode.Off:
-                return;
+                case DeferringMode.Off:
+                    return;
 
-            case DeferringMode.TemplateReady:
-                throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, nameof(SetLineInfo)));
+                case DeferringMode.TemplateReady:
+                    throw new XamlInternalException(SR.Get(SRID.TemplateNotCollected, nameof(SetLineInfo)));
 
-            case DeferringMode.TemplateStarting:
-                StartDeferredList();
-                // do not change _mode here - only the XamlWriter members should do that
-                goto case DeferringMode.TemplateDeferring;
+                case DeferringMode.TemplateStarting:
+                    StartDeferredList();
+                    // do not change _mode here - only the XamlWriter members should do that
+                    goto case DeferringMode.TemplateDeferring;
 
-            case DeferringMode.TemplateDeferring:
-                if (_deferredLineInfoConsumer != null)
-                {
-                    _deferredLineInfoConsumer.SetLineInfo(lineNumber, linePosition);
-                }
-                break;
+                case DeferringMode.TemplateDeferring:
+                    if (_deferredLineInfoConsumer != null)
+                    {
+                        _deferredLineInfoConsumer.SetLineInfo(lineNumber, linePosition);
+                    }
+                    break;
 
-            default:
-                throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), nameof(SetLineInfo)));
+                default:
+                    throw new XamlInternalException(SR.Get(SRID.MissingCase, _mode.ToString(), nameof(SetLineInfo)));
             }
         }
 

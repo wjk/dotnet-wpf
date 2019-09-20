@@ -411,7 +411,7 @@ namespace System.Xaml
             // Namespace is known
             // http://schemas.microsoft.com/winfx/2006/xaml/presentation/options
             // We're inside of a XmlDataIsland
-            
+
             // First, substitute in the LocalAssembly if needed
             if (_mergedSettings.LocalAssembly != null)
             {
@@ -431,7 +431,7 @@ namespace System.Xaml
                 newXmlNamespace = string.Empty;
             }
 
-            
+
             // we need to treat all namespaces inside of XmlDataIslands as Supported.
             // we need to tree Freeze as known, if it is around... don't hardcode.
             //else if (xmlNamespace == XamlReaderHelper.PresentationOptionsNamespaceURI)

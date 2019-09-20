@@ -898,11 +898,11 @@ namespace System.Xaml
             {
                 throw new ArgumentNullException(nameof(namespaceDeclaration));
             }
-            if(namespaceDeclaration.Prefix == null)
+            if (namespaceDeclaration.Prefix == null)
             {
                 throw new ArgumentException(SR.Get(SRID.NamespaceDeclarationPrefixCannotBeNull));
             }
-            if(namespaceDeclaration.Namespace == null)
+            if (namespaceDeclaration.Namespace == null)
             {
                 throw new ArgumentException(SR.Get(SRID.NamespaceDeclarationNamespaceCannotBeNull));
             }
@@ -992,7 +992,7 @@ namespace System.Xaml
 
         private void ThrowIfDisposed()
         {
-            if(IsDisposed)
+            if (IsDisposed)
             {
                 throw new ObjectDisposedException("XamlObjectWriter");
             }
@@ -1375,7 +1375,7 @@ namespace System.Xaml
                 {
                     converter = grandParentXamlType.KeyType.TypeConverter;
                 }
-                if (converter!= null && converter.ConverterType != null && converter != BuiltInValueConverter.String)
+                if (converter != null && converter.ConverterType != null && converter != BuiltInValueConverter.String)
                 {
                     TypeConverter typeConverter = Runtime.GetConverterInstance(converter);
                     if (typeConverter != null)
@@ -1803,7 +1803,7 @@ namespace System.Xaml
                     // If Value is a Markup Extention then check the collection item type
                     // if it can hold the ME then don't call ProvideValue().
                     XAML3.MarkupExtension me = value as XAML3.MarkupExtension;
-                    if(me != null && !Logic_WillParentCollectionAdd(ctx, value.GetType(), true))
+                    if (me != null && !Logic_WillParentCollectionAdd(ctx, value.GetType(), true))
                     {
                         // We don't need to call Logic_ProvideValue() with the extra handler
                         // interfaces, because this is collection not a scalar property.
@@ -2532,7 +2532,7 @@ namespace System.Xaml
             }
 
 #if DEBUG
-            if(token.Target.Property != token.TargetContext.ParentProperty)
+            if (token.Target.Property != token.TargetContext.ParentProperty)
             {
                 throw new XamlInternalException("Token's Target Property '{0}' != '{1}' the Token's Context parent Property");
             }
