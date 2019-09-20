@@ -22,7 +22,5 @@ namespace System.Windows.Markup
         ///  The object to set on this property.
         /// </returns>
         public abstract object ProvideValue(IServiceProvider serviceProvider);
-       
     }
 }
-
