@@ -11,35 +11,35 @@ namespace System.Xaml
     [Flags]
     internal enum BoolTypeBits
     {
-        Constructible                       = 0x0001,
-        XmlData                             = 0x0002,
-        MarkupExtension                     = 0x0004,
-        Nullable                            = 0x0008,
-        NameScope                           = 0x0010,
-        ConstructionRequiresArguments       = 0x0020,
-        Public                              = 0x0040,
-        Unknown                             = 0x0100,
-        TrimSurroundingWhitespace           = 0x1000,
-        WhitespaceSignificantCollection     = 0x2000,
-        UsableDuringInitialization          = 0x4000,
-        Ambient                             = 0x8000,
-        Default                             = Constructible | Nullable | Public,
-        AllValid                            = 0xFFFF << 16
+        Constructible = 0x0001,
+        XmlData = 0x0002,
+        MarkupExtension = 0x0004,
+        Nullable = 0x0008,
+        NameScope = 0x0010,
+        ConstructionRequiresArguments = 0x0020,
+        Public = 0x0040,
+        Unknown = 0x0100,
+        TrimSurroundingWhitespace = 0x1000,
+        WhitespaceSignificantCollection = 0x2000,
+        UsableDuringInitialization = 0x4000,
+        Ambient = 0x8000,
+        Default = Constructible | Nullable | Public,
+        AllValid = 0xFFFF << 16
     }
 
     [Flags]
     internal enum BoolMemberBits
     {
-        ReadOnly     = 0x0001,
-        WriteOnly    = 0x0002,
-        Event        = 0x0004,
-        Unknown      = 0x0008,
-        Ambient      = 0x0010,
-        ReadPublic   = 0x0020,
-        WritePublic  = 0x0040,
-        Default      = ReadPublic | WritePublic,
-        Directive    = Default,
-        AllValid     = 0xFFFF << 16
+        ReadOnly = 0x0001,
+        WriteOnly = 0x0002,
+        Event = 0x0004,
+        Unknown = 0x0008,
+        Ambient = 0x0010,
+        ReadPublic = 0x0020,
+        WritePublic = 0x0040,
+        Default = ReadPublic | WritePublic,
+        Directive = Default,
+        AllValid = 0xFFFF << 16
     }
 
     // Use this instead of a Nullable<bool> when a single-word read is needed for thread safety
@@ -49,7 +49,7 @@ namespace System.Xaml
         False,
         True
     }
-	
+
     // Thread safety: it's important that this structure remain word-sized, so that reads and
     // writes to it are atomic
     internal struct NullableReference<T> where T : class

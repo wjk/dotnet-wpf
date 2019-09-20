@@ -344,7 +344,7 @@ namespace System.Xaml.Schema
 
         private static MethodInfo GetPublicMethod(Type type, string name, int argCount)
         {
-            foreach (MemberInfo mi in type.GetMember(name, MemberTypes.Method, 
+            foreach (MemberInfo mi in type.GetMember(name, MemberTypes.Method,
                 BindingFlags.Instance | BindingFlags.Public))
             {
                 MethodInfo method = (MethodInfo)mi;

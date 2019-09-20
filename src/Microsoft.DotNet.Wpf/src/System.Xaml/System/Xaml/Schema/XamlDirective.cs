@@ -16,7 +16,7 @@ namespace System.Xaml
         private readonly IList<string> _xamlNamespaces;
 
         internal XamlDirective(IEnumerable<string> xamlNamespaces, string name, AllowedMemberLocations allowedLocation, MemberReflector reflector)
-            : base(name, reflector) 
+            : base(name, reflector)
         {
             _xamlNamespaces = GetReadOnly(xamlNamespaces);
             _allowedLocation = allowedLocation;
@@ -36,7 +36,7 @@ namespace System.Xaml
         }
 
         public XamlDirective(string xamlNamespace, string name)
-            :base(name, null)
+            : base(name, null)
         {
             _xamlNamespaces = GetReadOnly(xamlNamespace);
             _allowedLocation = AllowedMemberLocations.Any;

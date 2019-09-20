@@ -17,7 +17,7 @@ namespace System.Xaml.Schema
         private Func<TConverterBase> _factory;
 
         internal BuiltInValueConverter(Type converterType, Func<TConverterBase> factory)
-            :base(converterType, null)
+            : base(converterType, null)
         {
             _factory = factory;
         }
@@ -285,7 +285,7 @@ namespace System.Xaml.Schema
             }
             if (typeof(Uri).IsAssignableFrom(targetType))
             {
-                if(s_Uri is null)
+                if (s_Uri is null)
                 {
                     TypeConverter stdConverter = null;
                     try

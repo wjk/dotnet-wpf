@@ -49,7 +49,7 @@ namespace System.Xaml.Schema
                 clrNs = uriInput.Substring(clrNsStartIdx, clrnsLength);
             }
 
-            int assemblyKeywordStartIdx = semicolonIdx+1;
+            int assemblyKeywordStartIdx = semicolonIdx + 1;
             int equalIdx = KS.IndexOf(uriInput, "=");
             if (equalIdx == -1)
             {

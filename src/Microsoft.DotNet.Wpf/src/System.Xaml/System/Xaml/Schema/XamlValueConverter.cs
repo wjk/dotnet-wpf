@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace System.Xaml.Schema
 {
-    public class XamlValueConverter<TConverterBase> : IEquatable<XamlValueConverter<TConverterBase>> 
+    public class XamlValueConverter<TConverterBase> : IEquatable<XamlValueConverter<TConverterBase>>
         where TConverterBase : class
     {
         // Assignment should be idempotent
@@ -21,7 +21,7 @@ namespace System.Xaml.Schema
         public XamlType TargetType { get; }
 
         public XamlValueConverter(Type converterType, XamlType targetType)
-            :this(converterType, targetType, null)
+            : this(converterType, targetType, null)
         {
         }
 

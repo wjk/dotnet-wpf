@@ -4,7 +4,7 @@
 
 namespace System.Xaml.Schema
 {
-    public enum XamlCollectionKind:byte
+    public enum XamlCollectionKind : byte
     {
         None,
         Collection,

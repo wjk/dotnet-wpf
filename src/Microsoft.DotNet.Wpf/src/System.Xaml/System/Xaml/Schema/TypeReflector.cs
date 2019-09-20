@@ -73,7 +73,7 @@ namespace System.Xaml.Schema
             _nonAttachableMemberCache.IsComplete = true;
             _attachableMemberCache = new ThreadSafeDictionary<string, XamlMember>();
             _attachableMemberCache.IsComplete = true;
-            
+
             _baseType.Value = XamlLanguage.Object;
             _boolTypeBits = (int)BoolTypeBits.Default | (int)BoolTypeBits.Unknown | (int)BoolTypeBits.WhitespaceSignificantCollection | (int)BoolTypeBits.AllValid;
             _collectionKind = XamlCollectionKind.None;
@@ -616,7 +616,7 @@ namespace System.Xaml.Schema
         private void PickAttachablePropertyAccessors(List<MethodInfo> getters,
             List<MethodInfo> setters, out MethodInfo getter, out MethodInfo setter)
         {
-            List<KeyValuePair<MethodInfo, MethodInfo>> candidates = 
+            List<KeyValuePair<MethodInfo, MethodInfo>> candidates =
                 new List<KeyValuePair<MethodInfo, MethodInfo>>();
 
             if (setters != null && getters != null)
@@ -705,12 +705,12 @@ namespace System.Xaml.Schema
             return PickAttachableEventAdder(adders);
         }
 
-        private void LookupAllStaticAccessors(out Dictionary<string, List<MethodInfo>> getters, 
+        private void LookupAllStaticAccessors(out Dictionary<string, List<MethodInfo>> getters,
             out Dictionary<string, List<MethodInfo>> setters, out Dictionary<string, List<MethodInfo>> adders)
         {
-            getters = new Dictionary<string,List<MethodInfo>>();
-            setters = new Dictionary<string,List<MethodInfo>>();
-            adders = new Dictionary<string,List<MethodInfo>>();
+            getters = new Dictionary<string, List<MethodInfo>>();
+            setters = new Dictionary<string, List<MethodInfo>>();
+            adders = new Dictionary<string, List<MethodInfo>>();
 
             MethodInfo[] allMethods = UnderlyingType.GetMethods(AttachableProperties_BF);
 
@@ -724,7 +724,7 @@ namespace System.Xaml.Schema
             }
         }
 
-        private void LookupAllStaticAccessorsHelper(MethodInfo[] allMethods, Dictionary<string,List<MethodInfo>> getters,
+        private void LookupAllStaticAccessorsHelper(MethodInfo[] allMethods, Dictionary<string, List<MethodInfo>> getters,
             Dictionary<string, List<MethodInfo>> setters, Dictionary<string, List<MethodInfo>> adders, bool isUnderlyingTypePublic)
         {
             foreach (MethodInfo method in allMethods)
@@ -813,7 +813,7 @@ namespace System.Xaml.Schema
                             preferredAccessors = new List<MethodInfo>();
                         }
                         preferredAccessors.Add(accessor);
-                    }   
+                    }
                 }
             }
         }
@@ -824,7 +824,7 @@ namespace System.Xaml.Schema
             {
                 return IsAttachableEventAdder(accessor);
             }
-            
+
             if (isGetter)
             {
                 return IsAttachablePropertyGetter(accessor);
@@ -930,7 +930,7 @@ namespace System.Xaml.Schema
             {
                 return false;
             }
-            name = mi.Name.Substring(KnownStrings.Add.Length, 
+            name = mi.Name.Substring(KnownStrings.Add.Length,
                 mi.Name.Length - KnownStrings.Add.Length - KnownStrings.Handler.Length);
             return true;
         }
@@ -961,7 +961,7 @@ namespace System.Xaml.Schema
             return result;
         }
 
-        private void GetOrCreateAttachableProperties(XamlSchemaContext schemaContext, List<XamlMember> result, 
+        private void GetOrCreateAttachableProperties(XamlSchemaContext schemaContext, List<XamlMember> result,
             Dictionary<string, List<MethodInfo>> getters, Dictionary<string, List<MethodInfo>> setters)
         {
             foreach (KeyValuePair<string, List<MethodInfo>> nameAndSetterList in setters)
@@ -972,7 +972,7 @@ namespace System.Xaml.Schema
                 {
                     List<MethodInfo> getterList;
                     getters.TryGetValue(name, out getterList);
-                    
+
                     // removing the current entry from getters dictionary because it is not needed anymore
                     getters.Remove(name);
                     MethodInfo getter, setter;
@@ -1002,7 +1002,7 @@ namespace System.Xaml.Schema
             }
         }
 
-        private void GetOrCreateAttachableEvents(XamlSchemaContext schemaContext, 
+        private void GetOrCreateAttachableEvents(XamlSchemaContext schemaContext,
             List<XamlMember> result, Dictionary<string, List<MethodInfo>> adders)
         {
             foreach (KeyValuePair<string, List<MethodInfo>> nameAndAdderList in adders)
@@ -1087,7 +1087,7 @@ namespace System.Xaml.Schema
             Public
         }
 
-        internal class ThreadSafeDictionary<K,V> : Dictionary<K, V> where V : class
+        internal class ThreadSafeDictionary<K, V> : Dictionary<K, V> where V : class
         {
             bool _isComplete;
 
@@ -1162,5 +1162,5 @@ namespace System.Xaml.Schema
                 _isComplete = true;
             }
         }
-   }
+    }
 }
