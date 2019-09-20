@@ -29,7 +29,7 @@ namespace MS.Internal.Xaml.Parser
         public ScannerNodeType NodeType { get; set; }
         public XamlType Type { get; set; }
         public string TypeNamespace { get; set; }
-        public XamlMember PropertyAttribute  { get; set; }
+        public XamlMember PropertyAttribute { get; set; }
         public XamlText PropertyAttributeText { get; set; }
         public bool IsCtorForcingMember { get; set; }
         public XamlMember PropertyElement { get; set; }
@@ -38,6 +38,6 @@ namespace MS.Internal.Xaml.Parser
         public bool IsXDataText { get; set; }
         public string Prefix { get; set; }
         public int LineNumber { get; private set; }
-        public int LinePosition  { get; private set; }
+        public int LinePosition { get; private set; }
     }
 }

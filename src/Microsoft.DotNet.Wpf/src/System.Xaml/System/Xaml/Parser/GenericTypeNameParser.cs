@@ -153,7 +153,7 @@ namespace MS.Internal.Xaml.Parser
             {
                 P_RepeatingSubscript();
             }
-            
+
             Callout_EndOfType();
         }
 

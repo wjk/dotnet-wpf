@@ -60,7 +60,7 @@ namespace MS.Internal.Xaml.Parser
             }
             else if (Property.IsDirective)
             {
-                if(Property == XamlLanguage.Space)
+                if (Property == XamlLanguage.Space)
                 {
                     Kind = ScannerAttributeKind.XmlSpace;
                 }
@@ -79,7 +79,7 @@ namespace MS.Internal.Xaml.Parser
                     Kind = ScannerAttributeKind.Directive;
                 }
             }
-            else if(Property.IsAttachable)
+            else if (Property.IsAttachable)
             {
                 Kind = ScannerAttributeKind.AttachableProperty;
             }

@@ -30,7 +30,7 @@ namespace MS.Internal.Xaml.Parser
         public XamlScannerStack()
         {
             _stack = new Stack<XamlScannerFrame>();
-            _stack.Push( new XamlScannerFrame(null, null) );
+            _stack.Push(new XamlScannerFrame(null, null));
         }
 
         public void Push(XamlType type, string ns)

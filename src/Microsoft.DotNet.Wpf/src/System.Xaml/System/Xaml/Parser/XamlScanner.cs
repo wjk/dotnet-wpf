@@ -178,30 +178,30 @@ namespace MS.Internal.Xaml.Parser
             XmlNodeType xmlNodeType = _xmlReader.NodeType;
             switch (xmlNodeType)
             {
-            case XmlNodeType.Element:
-                ReadElement();
-                break;
+                case XmlNodeType.Element:
+                    ReadElement();
+                    break;
 
-            case XmlNodeType.EndElement:
-                ReadEndElement();
-                break;
+                case XmlNodeType.EndElement:
+                    ReadEndElement();
+                    break;
 
-            case XmlNodeType.Text:
-            case XmlNodeType.CDATA:
-                ReadText();
-                break;
+                case XmlNodeType.Text:
+                case XmlNodeType.CDATA:
+                    ReadText();
+                    break;
 
-            case XmlNodeType.SignificantWhitespace:
-            case XmlNodeType.Whitespace:
-                ReadWhitespace();
-                break;
+                case XmlNodeType.SignificantWhitespace:
+                case XmlNodeType.Whitespace:
+                    ReadWhitespace();
+                    break;
 
-            case XmlNodeType.None:
-                ReadNone();
-                break;
+                case XmlNodeType.None:
+                    ReadNone();
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
             }
         }
         // ============= Private ==================================
@@ -649,41 +649,41 @@ namespace MS.Internal.Xaml.Parser
             // The Name attribute
             foreach (XamlAttribute attr in _attributes)
             {
-                switch(attr.Kind)
+                switch (attr.Kind)
                 {
-                case ScannerAttributeKind.Name:
-                    nameAttribute = attr;
+                    case ScannerAttributeKind.Name:
+                        nameAttribute = attr;
                         break;
 
-                case ScannerAttributeKind.CtorDirective:
-                    if (ctorDirectivesList == null)
-                    {
-                        ctorDirectivesList = new List<XamlAttribute>();
-                    }
-                    ctorDirectivesList.Add(attr);
+                    case ScannerAttributeKind.CtorDirective:
+                        if (ctorDirectivesList == null)
+                        {
+                            ctorDirectivesList = new List<XamlAttribute>();
+                        }
+                        ctorDirectivesList.Add(attr);
                         break;
 
-                case ScannerAttributeKind.Directive:
-                case ScannerAttributeKind.XmlSpace:
-                    if (attr.Property == XamlLanguage.Key)
-                    {
-                        _hasKeyAttribute = true;
-                    }
+                    case ScannerAttributeKind.Directive:
+                    case ScannerAttributeKind.XmlSpace:
+                        if (attr.Property == XamlLanguage.Key)
+                        {
+                            _hasKeyAttribute = true;
+                        }
 
-                    if (otherDirectivesList == null)
-                    {
-                        otherDirectivesList = new List<XamlAttribute>();
-                    }
-                    otherDirectivesList.Add(attr);
-                    break;
+                        if (otherDirectivesList == null)
+                        {
+                            otherDirectivesList = new List<XamlAttribute>();
+                        }
+                        otherDirectivesList.Add(attr);
+                        break;
 
-                default:
-                    if (otherPropertiesList == null)
-                    {
-                        otherPropertiesList = new List<XamlAttribute>();
-                    }
-                    otherPropertiesList.Add(attr);
-                    break;
+                    default:
+                        if (otherPropertiesList == null)
+                        {
+                            otherPropertiesList = new List<XamlAttribute>();
+                        }
+                        otherPropertiesList.Add(attr);
+                        break;
                 }
             }
 
@@ -741,45 +741,45 @@ namespace MS.Internal.Xaml.Parser
 
             switch (attr.Kind)
             {
-            case ScannerAttributeKind.Directive:
-            case ScannerAttributeKind.Name:
-            case ScannerAttributeKind.CtorDirective:
-                node.NodeType = ScannerNodeType.DIRECTIVE;
-                break;
+                case ScannerAttributeKind.Directive:
+                case ScannerAttributeKind.Name:
+                case ScannerAttributeKind.CtorDirective:
+                    node.NodeType = ScannerNodeType.DIRECTIVE;
+                    break;
 
-            case ScannerAttributeKind.XmlSpace:
-                // Empty tags don't have a stack frame to write on.
-                // Empty XML tags don't have content to process spaces.
-                if (!isEmptyTag)
-                {
-                    if (KS.Eq(attr.Value, KnownStrings.Preserve))
-                        _scannerStack.CurrentXmlSpacePreserve = true;
-                    else
-                        _scannerStack.CurrentXmlSpacePreserve = false;
-                }
-                node.NodeType = ScannerNodeType.DIRECTIVE;
-                break;
+                case ScannerAttributeKind.XmlSpace:
+                    // Empty tags don't have a stack frame to write on.
+                    // Empty XML tags don't have content to process spaces.
+                    if (!isEmptyTag)
+                    {
+                        if (KS.Eq(attr.Value, KnownStrings.Preserve))
+                            _scannerStack.CurrentXmlSpacePreserve = true;
+                        else
+                            _scannerStack.CurrentXmlSpacePreserve = false;
+                    }
+                    node.NodeType = ScannerNodeType.DIRECTIVE;
+                    break;
 
-            case ScannerAttributeKind.Event:
-            case ScannerAttributeKind.Property:
-                node.IsCtorForcingMember = true;
-                node.NodeType = ScannerNodeType.ATTRIBUTE;
-                break;
+                case ScannerAttributeKind.Event:
+                case ScannerAttributeKind.Property:
+                    node.IsCtorForcingMember = true;
+                    node.NodeType = ScannerNodeType.ATTRIBUTE;
+                    break;
 
-           case ScannerAttributeKind.Unknown:
-                XamlMember prop = attr.Property;
-                Debug.Assert(prop.IsUnknown);
-                // force use of Ctor for unknown simple properties only
-                node.IsCtorForcingMember = !prop.IsAttachable && !prop.IsDirective;
-                node.NodeType = ScannerNodeType.ATTRIBUTE;
-                break;
+                case ScannerAttributeKind.Unknown:
+                    XamlMember prop = attr.Property;
+                    Debug.Assert(prop.IsUnknown);
+                    // force use of Ctor for unknown simple properties only
+                    node.IsCtorForcingMember = !prop.IsAttachable && !prop.IsDirective;
+                    node.NodeType = ScannerNodeType.ATTRIBUTE;
+                    break;
 
-            case ScannerAttributeKind.AttachableProperty:
-                node.NodeType = ScannerNodeType.ATTRIBUTE;
-                break;
+                case ScannerAttributeKind.AttachableProperty:
+                    node.NodeType = ScannerNodeType.ATTRIBUTE;
+                    break;
 
-            default:
-                throw new XamlInternalException(SR.Get(SRID.AttributeUnhandledKind));
+                default:
+                    throw new XamlInternalException(SR.Get(SRID.AttributeUnhandledKind));
             }
 
             // (GetFixedDocumentSequence raises Exception "UnicodeString property does not
