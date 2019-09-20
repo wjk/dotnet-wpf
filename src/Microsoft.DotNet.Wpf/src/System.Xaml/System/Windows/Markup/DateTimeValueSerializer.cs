@@ -19,7 +19,7 @@ namespace System.Windows.Markup
     //  support en-us culture.
     //
     //+--------------------------------------------------------------------------------------
-    
+
     /// <summary>
     ///     ValueSerializer for DateTime.
     /// </summary>
@@ -27,7 +27,7 @@ namespace System.Windows.Markup
     public class DateTimeValueSerializer : ValueSerializer
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="T:System.ComponentModel.DateTimeConverter"></see> class.
+        ///     Initializes a new instance of the <see cref="System.ComponentModel.DateTimeConverter"></see> class.
         /// </summary>
         public DateTimeValueSerializer()
         {
@@ -36,7 +36,7 @@ namespace System.Windows.Markup
         /// <summary>
         ///     Indicate that we do convert DateTime's from string.
         /// </summary>
-        
+
         public override bool CanConvertFromString(string value, IValueSerializerContext context)
         {
             return true;
@@ -45,51 +45,51 @@ namespace System.Windows.Markup
         /// <summary>
         ///     Indicate that we do convert a DateTime to string.
         /// </summary>
-        
+
         public override bool CanConvertToString(object value, IValueSerializerContext context)
         {
             // Validate the input type
-            if ( !(value is DateTime))
+            if (!(value is DateTime))
             {
                 return false;
             }
-            
+
             return true;
         }
 
         /// <summary>
-        ///     Converts the given value object to a <see cref="T:System.DateTime"></see>.
+        ///     Converts the given value object to a <see cref="System.DateTime"></see>.
         /// </summary>
 
         public override object ConvertFromString(string value, IValueSerializerContext context)
         {
             // Validate and clean up input.
-            
-            if( value == null )
+
+            if (value == null)
             {
                 throw GetConvertFromException(value);
             }
 
-            if( value.Length == 0 )
+            if (value.Length == 0)
             {
                 return DateTime.MinValue;
             }
 
             // Get a DateTimeFormatInfo
-            
+
             DateTimeFormatInfo dateTimeFormatInfo;
 
             dateTimeFormatInfo = (DateTimeFormatInfo)TypeConverterHelper.InvariantEnglishUS.GetFormat(typeof(DateTimeFormatInfo));
 
             // Set the formatting style for round-tripping and to trim the string.
-            
-            DateTimeStyles dateTimeStyles = DateTimeStyles.RoundtripKind 
+
+            DateTimeStyles dateTimeStyles = DateTimeStyles.RoundtripKind
                       | DateTimeStyles.NoCurrentDateDefault
                       | DateTimeStyles.AllowLeadingWhite
                       | DateTimeStyles.AllowTrailingWhite;
 
             // Create the DateTime, using the DateTimeInfo if possible, and the culture otherwise.
-            
+
             if (dateTimeFormatInfo != null)
             {
                 return DateTime.Parse(value, dateTimeFormatInfo, dateTimeStyles);
@@ -101,24 +101,24 @@ namespace System.Windows.Markup
             }
         }
 
- 
+
 
         /// <summary>
-        ///     Converts the given value object to a <see cref="T:System.DateTime"></see> using the arguments.
+        ///     Converts the given value object to a <see cref="System.DateTime"></see> using the arguments.
         /// </summary>
 
         public override string ConvertToString(object value, IValueSerializerContext context)
         {
-            if( value == null || !(value is DateTime))
+            if (value == null || !(value is DateTime))
             {
-                throw GetConvertToException( value, typeof(string) );
+                throw GetConvertToException(value, typeof(string));
             }
-            
+
             DateTime dateTime = (DateTime)value;
 
             // Build up the format string to be used in DateTime.ToString()
             StringBuilder formatString = new StringBuilder("yyyy-MM-dd");
-            
+
             if (dateTime.TimeOfDay == TimeSpan.Zero)
             {
                 // The time portion of this DateTime is exactly at midnight.  
@@ -126,7 +126,7 @@ namespace System.Windows.Markup
                 // Otherwise, we're going to be including the time zone info, so'll
                 // we'll have to include the time.
 
-                if( dateTime.Kind != DateTimeKind.Unspecified )
+                if (dateTime.Kind != DateTimeKind.Unspecified)
                 {
                     formatString.Append("'T'HH':'mm");
                 }
@@ -153,12 +153,12 @@ namespace System.Windows.Markup
             // Add the format specifier that indicates we want the DateTimeKind to be
             // included in the output formulation -- UTC gets written out with a "Z",
             // and Local gets written out with e.g. "-08:00" for Pacific Standard Time.
-            
+
             formatString.Append("K");
 
             // We've finally got our format string built, we can create the string.
 
-            return dateTime.ToString(formatString.ToString(), TypeConverterHelper.InvariantEnglishUS );
+            return dateTime.ToString(formatString.ToString(), TypeConverterHelper.InvariantEnglishUS);
 
         }
 
