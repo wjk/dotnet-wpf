@@ -2,14 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-//
-//  Microsoft Windows Client Platform
-//
-//
 //  Contents: Namespace default prefix recommendation support 
-
-//  Created:   04/28/2005 Microsoft
-//
 
 using System.Runtime.CompilerServices;
 
