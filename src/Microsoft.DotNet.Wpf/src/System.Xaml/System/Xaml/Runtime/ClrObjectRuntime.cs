@@ -33,7 +33,7 @@ namespace MS.Internal.Xaml.Runtime
 
         private static Exception UnwrapTargetInvocationException(Exception e)
         {
-            if(e is TargetInvocationException && e.InnerException != null)
+            if (e is TargetInvocationException && e.InnerException != null)
             {
                 return e.InnerException;
             }
@@ -232,17 +232,17 @@ namespace MS.Internal.Xaml.Runtime
             object value;
             try
             {
-                if(property.IsDirective)
+                if (property.IsDirective)
                 {
                     value = CreateInstance(property.Type, null);
                 }
-                else if(!failIfWriteOnly)
+                else if (!failIfWriteOnly)
                 {
                     try
                     {
                         value = GetValue(property, obj);
                     }
-                    catch(NotSupportedException)
+                    catch (NotSupportedException)
                     {
                         value = null;
                     }
@@ -252,9 +252,9 @@ namespace MS.Internal.Xaml.Runtime
                     value = GetValue(property, obj);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(CriticalExceptions.IsCriticalException(e))
+                if (CriticalExceptions.IsCriticalException(e))
                 {
                     throw;
                 }
@@ -272,15 +272,15 @@ namespace MS.Internal.Xaml.Runtime
         {
             try
             {
-                if(property.IsDirective)
+                if (property.IsDirective)
                 {
                     return;
                 }
                 SetValue(property, inst, value);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(CriticalExceptions.IsCriticalException(e))
+                if (CriticalExceptions.IsCriticalException(e))
                 {
                     throw;
                 }
@@ -299,9 +299,9 @@ namespace MS.Internal.Xaml.Runtime
             {
                 collectionType.Invoker.AddToCollection(collection, value);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(CriticalExceptions.IsCriticalException(e))
+                if (CriticalExceptions.IsCriticalException(e))
                 {
                     throw;
                 }
@@ -315,9 +315,9 @@ namespace MS.Internal.Xaml.Runtime
             {
                 dictionaryType.Invoker.AddToDictionary(collection, key, value);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(CriticalExceptions.IsCriticalException(e))
+                if (CriticalExceptions.IsCriticalException(e))
                 {
                     throw;
                 }
@@ -327,7 +327,7 @@ namespace MS.Internal.Xaml.Runtime
 
         public override IList<object> GetCollectionItems(object collection, XamlType collectionType)
         {
-            List<object> result; 
+            List<object> result;
             IEnumerator enumerator = GetItems(collection, collectionType);
             try
             {
@@ -436,14 +436,14 @@ namespace MS.Internal.Xaml.Runtime
             try
             {
                 XAML3.IComponentConnector connector = root as XAML3.IComponentConnector;
-                if(connector != null)
+                if (connector != null)
                 {
                     connector.Connect(connectionId, instance);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(CriticalExceptions.IsCriticalException(e))
+                if (CriticalExceptions.IsCriticalException(e))
                 {
                     throw;
                 }
@@ -456,9 +456,9 @@ namespace MS.Internal.Xaml.Runtime
             try
             {
                 ISupportInitialize supportInit = obj as ISupportInitialize;
-                if(supportInit != null)
+                if (supportInit != null)
                 {
-                    if(begin)
+                    if (begin)
                     {
                         supportInit.BeginInit();
                     }
@@ -468,9 +468,9 @@ namespace MS.Internal.Xaml.Runtime
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(CriticalExceptions.IsCriticalException(e))
+                if (CriticalExceptions.IsCriticalException(e))
                 {
                     throw;
                 }
@@ -485,9 +485,9 @@ namespace MS.Internal.Xaml.Runtime
                 object val = me.ProvideValue(serviceProvider);
                 return val;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(CriticalExceptions.IsCriticalException(e))
+                if (CriticalExceptions.IsCriticalException(e))
                 {
                     throw;
                 }
@@ -500,14 +500,14 @@ namespace MS.Internal.Xaml.Runtime
             try
             {
                 XAML3.IUriContext uriContext = obj as XAML3.IUriContext;
-                if(uriContext != null)
+                if (uriContext != null)
                 {
                     uriContext.BaseUri = baseUri;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(CriticalExceptions.IsCriticalException(e))
+                if (CriticalExceptions.IsCriticalException(e))
                 {
                     throw;
                 }
@@ -521,13 +521,13 @@ namespace MS.Internal.Xaml.Runtime
         {
             object propInstance = GetValue(inst, property, true);
             IXmlSerializable iXmlSerial = propInstance as IXmlSerializable;
-            if(iXmlSerial == null)
+            if (iXmlSerial == null)
             {
                 throw CreateException((SR.Get(SRID.XmlDataNull, property.Name)));
             }
 
             XmlReader reader = xData.XmlReader as XmlReader;
-            if(reader == null)
+            if (reader == null)
             {
                 throw new XamlInternalException(SR.Get(SRID.XmlValueNotReader, property.Name));
             }
@@ -535,9 +535,9 @@ namespace MS.Internal.Xaml.Runtime
             {
                 iXmlSerial.ReadXml(reader);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(CriticalExceptions.IsCriticalException(e))
+                if (CriticalExceptions.IsCriticalException(e))
                 {
                     throw;
                 }
@@ -557,7 +557,7 @@ namespace MS.Internal.Xaml.Runtime
             try
             {
                 XamlDeferringLoader converter = GetConverterInstance(deferringLoader);
-                if(converter == null)
+                if (converter == null)
                 {
                     throw new XamlObjectWriterException(SR.Get(SRID.DeferringLoaderInstanceNull, deferringLoader));
                 }
@@ -567,7 +567,7 @@ namespace MS.Internal.Xaml.Runtime
             {
                 // Reset the reader in case our caller catches and retries
                 IXamlIndexingReader indexingReader = deferredContent as IXamlIndexingReader;
-                if(indexingReader != null && indexingReader.CurrentIndex >= 0)
+                if (indexingReader != null && indexingReader.CurrentIndex >= 0)
                 {
                     indexingReader.CurrentIndex = -1;
                 }
@@ -649,7 +649,7 @@ namespace MS.Internal.Xaml.Runtime
                 //let the value passthrough (to be set as the property value later).
                 obj = value;
             }
-            
+
             return obj;
         }
 

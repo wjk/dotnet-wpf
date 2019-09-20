@@ -256,7 +256,7 @@ namespace MS.Internal.Xaml.Runtime
 
         public override TConverterBase GetConverterInstance<TConverterBase>(XamlValueConverter<TConverterBase> converter)
         {
-            if (!MemberAccessPermissionDenied ||  converter.IsPublic || !IsDefaultConverter(converter))
+            if (!MemberAccessPermissionDenied || converter.IsPublic || !IsDefaultConverter(converter))
             {
                 try
                 {
