@@ -7,7 +7,6 @@
 //             an attached property by setting it on the static accessor
 //             for the attachable property).
 
-using System;
 using System.Runtime.CompilerServices;
 
 [assembly:TypeForwardedTo(typeof(System.Windows.Markup.ValueSerializerAttribute))]
