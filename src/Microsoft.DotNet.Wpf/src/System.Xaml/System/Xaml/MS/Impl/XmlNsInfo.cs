@@ -212,7 +212,7 @@ namespace System.Xaml.MS.Impl
                 xmlNamespaceList.Add(nsDef.XmlNamespace);
             }
 
-            string assemblyName = _fullyQualifyAssemblyName ? 
+            string assemblyName = _fullyQualifyAssemblyName ?
                 assembly.FullName : XamlSchemaContext.GetAssemblyShortName(assembly);
             foreach (KeyValuePair<string, IList<string>> clrToXmlNs in result)
             {
@@ -434,7 +434,7 @@ namespace System.Xaml.MS.Impl
                 _nsInfo = nsInfo;
 
                 // Calculate the subsume count upfront, since this also serves as our cycle detection
-                _subsumeCount = new Dictionary<string,int>(nsInfo.OldToNewNs.Count);
+                _subsumeCount = new Dictionary<string, int>(nsInfo.OldToNewNs.Count);
 
                 Dictionary<string, object> visited = new Dictionary<string, object>();
 

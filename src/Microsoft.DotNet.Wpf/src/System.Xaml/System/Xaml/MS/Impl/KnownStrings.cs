@@ -7,7 +7,7 @@ namespace System.Xaml.MS.Impl
     internal static class KnownStrings
     {
         // Built-in strings.
-        public const string XmlPrefix   = "xml";
+        public const string XmlPrefix = "xml";
         public const string XmlNsPrefix = "xmlns";
 
         public const string Preserve = "preserve";

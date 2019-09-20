@@ -23,7 +23,7 @@ namespace System.Xaml
             return dest;
         }
 
-        internal static void ForAll<R>(R[] src, Action<R> f) 
+        internal static void ForAll<R>(R[] src, Action<R> f)
         {
             foreach (R r in src)
                 f(r);
