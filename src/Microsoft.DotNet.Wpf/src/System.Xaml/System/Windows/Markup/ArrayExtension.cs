@@ -34,10 +34,9 @@ namespace System.Windows.Markup
         /// <summary>
         ///  Constructor that takes one parameter.  This initializes the type of the array.
         /// </summary>
-        public ArrayExtension(
-            Type arrayType)
+        public ArrayExtension(Type arrayType)
         {
-            _arrayType = arrayType ?? throw new ArgumentNullException(nameof(arrayType));
+            Type = arrayType ?? throw new ArgumentNullException(nameof(arrayType));
         }
 
         /// <summary>
@@ -52,7 +51,7 @@ namespace System.Windows.Markup
             }
 
             _arrayList.AddRange(elements);
-            _arrayType = elements.GetType().GetElementType();
+            Type = elements.GetType().GetElementType();
         }
 
         ///<summary>
@@ -83,11 +82,7 @@ namespace System.Windows.Markup
         /// Get and set the type of array to be created when calling ProvideValue
         ///</summary>
         [ConstructorArgument("type")]
-        public Type Type
-        {
-            get { return _arrayType; }
-            set { _arrayType = value; }
-        }
+        public Type Type { get; set; }
 
         /// <summary>
         /// An IList accessor to the contents of the array
@@ -107,30 +102,24 @@ namespace System.Windows.Markup
         /// </returns>
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            if (_arrayType == null)
+            if (Type == null)
             {
                 throw new InvalidOperationException(SR.Get(SRID.MarkupExtensionArrayType));
             }
             
-            object retArray = null;
-
             try
             {
-                retArray = _arrayList.ToArray(_arrayType);
+                return _arrayList.ToArray(Type);
             }
             catch (InvalidCastException)
             {
                 // If an element was added to the ArrayExtension that does not agree with the
                 // ArrayType, then an InvalidCastException will occur.  Generate a more
                 // meaningful error for this case.
-                throw new InvalidOperationException(SR.Get(SRID.MarkupExtensionArrayBadType, _arrayType.Name));
+                throw new InvalidOperationException(SR.Get(SRID.MarkupExtensionArrayBadType, Type.Name));
             }
-
-            return retArray;
         }
 
         private ArrayList _arrayList = new ArrayList();
-        private Type      _arrayType;
-
     }
 }
