@@ -58,7 +58,7 @@ namespace System.Xaml
         public XamlException() { }
 
         public XamlException(string message)
-            :base(message) { }
+            : base(message) { }
 
         // FxCop required this.
         protected XamlException(SerializationInfo info, StreamingContext context)
@@ -99,12 +99,12 @@ namespace System.Xaml
 
         internal XamlParseException(int lineNumber, int linePosition, string message)
             : base(message, null, lineNumber, linePosition) { }
-        
+
         // FxCop required these.
         public XamlParseException() { }
 
         public XamlParseException(string message)
-            :base(message) { }
+            : base(message) { }
 
         public XamlParseException(string message, Exception innerException)
             : base(message, innerException) { }
@@ -141,7 +141,7 @@ namespace System.Xaml
     {
         public XamlMember DuplicateMember { get; set; }
         public XamlType ParentType { get; set; }
-        
+
         public XamlDuplicateMemberException() { }
 
         public XamlDuplicateMemberException(XamlMember member, XamlType type)

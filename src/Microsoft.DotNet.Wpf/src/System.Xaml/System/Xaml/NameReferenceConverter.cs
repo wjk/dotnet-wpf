@@ -8,7 +8,7 @@ using System.Xaml;
 
 namespace System.Windows.Markup
 {
-    public class NameReferenceConverter: TypeConverter 
+    public class NameReferenceConverter : TypeConverter
     {
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -26,7 +26,7 @@ namespace System.Windows.Markup
             {
                 throw new ArgumentNullException(nameof(context));
             }
-            
+
             var nameResolver = (IXamlNameResolver)context.GetService(typeof(IXamlNameResolver));
             if (nameResolver == null)
             {
@@ -49,7 +49,7 @@ namespace System.Windows.Markup
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
-            if (context == null || (context.GetService(typeof(IXamlNameProvider)) as  IXamlNameProvider) == null)
+            if (context == null || (context.GetService(typeof(IXamlNameProvider)) as IXamlNameProvider) == null)
             {
                 return false;
             }
@@ -60,7 +60,7 @@ namespace System.Windows.Markup
             }
 
             return base.CanConvertTo(context, destinationType);
-            
+
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
@@ -76,7 +76,7 @@ namespace System.Windows.Markup
                 throw new InvalidOperationException(SR.Get(SRID.MissingNameProvider));
             }
 
-            return nameProvider.GetName(value);            
+            return nameProvider.GetName(value);
         }
     }
 }

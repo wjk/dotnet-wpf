@@ -11,5 +11,4 @@ namespace System.Xaml
         int LineNumber { get; }
         int LinePosition { get; }
     }
-    
 }

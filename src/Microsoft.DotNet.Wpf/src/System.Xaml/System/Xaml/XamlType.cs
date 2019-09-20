@@ -31,7 +31,7 @@ namespace System.Xaml
         /// Lazy init: NullableReference.IsSet is null when not initialized
         /// </summary>
         private NullableReference<Type> _underlyingType;
-        
+
         // Lazy init: null until initialized
         // Thread safety: idempotent, assignment races are okay; do not assign incomplete values
         ReadOnlyCollection<string> _namespaces;
@@ -56,10 +56,10 @@ namespace System.Xaml
             _schemaContext = schemaContext ?? throw new ArgumentNullException(nameof(schemaContext));
             _typeArguments = GetTypeArguments(typeArguments);
             _reflector = TypeReflector.UnknownReflector;
-        }        
+        }
 
         public XamlType(Type underlyingType, XamlSchemaContext schemaContext)
-            :this(underlyingType, schemaContext, null)
+            : this(underlyingType, schemaContext, null)
         {
         }
 
@@ -231,7 +231,7 @@ namespace System.Xaml
             get
             {
                 XamlCollectionKind collectionKind = GetCollectionKind();
-                if (collectionKind != XamlCollectionKind.Collection && 
+                if (collectionKind != XamlCollectionKind.Collection &&
                     collectionKind != XamlCollectionKind.Dictionary)
                 {
                     return null;
@@ -239,7 +239,7 @@ namespace System.Xaml
                 Debug.Assert(_reflector != null, "_reflector should have been initialized by GetCollectionKind");
                 if (_reflector.AllowedContentTypes == null)
                 {
-                    _reflector.AllowedContentTypes = LookupAllowedContentTypes() ?? 
+                    _reflector.AllowedContentTypes = LookupAllowedContentTypes() ??
                         EmptyList<XamlType>.Value;
                 }
                 return _reflector.AllowedContentTypes;
@@ -257,7 +257,7 @@ namespace System.Xaml
                 Debug.Assert(_reflector != null, "_reflector should have been initialized by IsCollection");
                 if (_reflector.ContentWrappers == null)
                 {
-                    _reflector.ContentWrappers = LookupContentWrappers() ?? 
+                    _reflector.ContentWrappers = LookupContentWrappers() ??
                         EmptyList<XamlType>.Value;
                 }
                 return _reflector.ContentWrappers;
@@ -477,19 +477,19 @@ namespace System.Xaml
             AppendTypeName(sb, false);
             return sb.ToString();
         }
-        
+
         internal bool IsUsableAsReadOnly
         {
             get
             {
                 XamlCollectionKind collectionKind = GetCollectionKind();
-                return 
+                return
                     (collectionKind == XamlCollectionKind.Collection) ||
                     (collectionKind == XamlCollectionKind.Dictionary) ||
                     IsXData;
             }
         }
-       
+
         internal MethodInfo IsReadOnlyMethod
         {
             get
@@ -1001,8 +1001,8 @@ namespace System.Xaml
             }
 
             EnsureReflector();
-            ICollection<PropertyInfo> properties; 
-            ICollection<EventInfo> events; 
+            ICollection<PropertyInfo> properties;
+            ICollection<EventInfo> events;
             List<XamlMember> result;
             _reflector.LookupAllMembers(out properties, out events, out result);
 
@@ -1206,7 +1206,7 @@ namespace System.Xaml
                 }
             }
 
-           if (BaseType != null)
+            if (BaseType != null)
             {
                 XamlValueConverter<ValueSerializer> result = BaseType.ValueSerializer;
                 if (result != null)
@@ -1541,7 +1541,7 @@ namespace System.Xaml
             {
                 return null;
             }
-            
+
             // Force the list of all members to populate
             ICollection<XamlMember> allMembers = GetAllMembers();
 
@@ -1574,7 +1574,7 @@ namespace System.Xaml
             // Constructors.  If the type is TypeExtension then we hard code the right answer.
             if (UnderlyingType == XamlLanguage.Type.UnderlyingType)
             {
-                Dictionary<int, IList<XamlType>> result = new Dictionary<int,IList<XamlType>>();
+                Dictionary<int, IList<XamlType>> result = new Dictionary<int, IList<XamlType>>();
                 XamlType typeOfType = SchemaContext.GetXamlType(typeof(Type));
                 XamlType[] typeVector = new XamlType[] { typeOfType };
                 result.Add(1, GetReadOnly(typeVector));

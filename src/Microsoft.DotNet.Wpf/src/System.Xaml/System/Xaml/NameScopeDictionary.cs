@@ -22,7 +22,7 @@ namespace System.Xaml
         private HybridDictionary _nameMap;
         private INameScope _underlyingNameScope;
         private FrugalObjectList<string> _names;
-        
+
         public NameScopeDictionary()
         {
         }
@@ -134,7 +134,7 @@ namespace System.Xaml
             HybridDictionary _nameMap;
             INameScope _underlyingNameScope;
             FrugalObjectList<string> _names;
-            
+
             public Enumerator(NameScopeDictionary nameScopeDictionary)
             {
                 _nameMap = nameScopeDictionary._nameMap;
@@ -166,7 +166,7 @@ namespace System.Xaml
                     if (_underlyingNameScope != null)
                     {
                         string name = _names[index];
-                        return new KeyValuePair<string,object>(name, _underlyingNameScope.FindName(name));
+                        return new KeyValuePair<string, object>(name, _underlyingNameScope.FindName(name));
                     }
                     else
                     {
@@ -289,7 +289,7 @@ namespace System.Xaml
 
         #region IDictionary<string, object> methods
         object IDictionary<string, object>.this[string key]
-        { 
+        {
             get
             {
                 throw new NotImplementedException();

@@ -122,7 +122,7 @@ namespace System.Xaml
         //  global attached properties for types which don't implement IAttachedProperties or DO/Dependency Property
         //  integration for their attached properties.
         //
- #if !TARGETTING35SP1
+#if !TARGETTING35SP1
         sealed class DefaultAttachedPropertyStore
         {
             Lazy<ConditionalWeakTable<object, Dictionary<AttachableMemberIdentifier, object>>> instanceStorage =

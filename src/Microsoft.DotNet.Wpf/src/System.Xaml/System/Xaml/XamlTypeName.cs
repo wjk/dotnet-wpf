@@ -215,7 +215,7 @@ namespace System.Xaml.Schema
             return xamlTypeName;
         }
 
-        internal static IList<XamlTypeName> ParseListInternal(string typeNameList, 
+        internal static IList<XamlTypeName> ParseListInternal(string typeNameList,
             Func<string, string> prefixResolver, out string error)
         {
             GenericTypeNameParser nameParser = new GenericTypeNameParser(prefixResolver);

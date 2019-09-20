@@ -240,7 +240,8 @@ namespace System.Xaml
 
             public int GetHashCode(object obj)
             {
-                if (obj == null) { return 0; }
+                if (obj == null)
+                { return 0; }
                 return obj.GetHashCode();
             }
         }
@@ -304,10 +305,12 @@ namespace System.Xaml
                     }
 
                     //Non-empty Collections are not attributable
-                    if (Children.Count > 1) { return false; }
+                    if (Children.Count > 1)
+                    { return false; }
 
                     //Empty collections and atoms are attributable
-                    if (Children.Count == 0 || Children[0] is ValueMarkupInfo) { return true; }
+                    if (Children.Count == 0 || Children[0] is ValueMarkupInfo)
+                    { return true; }
 
                     ObjectMarkupInfo r = Children[0] as ObjectMarkupInfo;
                     if (r == null)
@@ -402,7 +405,8 @@ namespace System.Xaml
                 if (property != null)
                 {
                     propertyValue = context.Runtime.GetValue(sourceOrValue, property);
-                    if (propertyValue == null) { return null; }
+                    if (propertyValue == null)
+                    { return null; }
                     //sourceType = sourceOrValue.GetType();
                 }
                 else
@@ -588,7 +592,8 @@ namespace System.Xaml
             static MemberMarkupInfo ForXmlSerializable(object source, XamlMember property, SerializerContext context)
             {
                 var serializer = (IXmlSerializable)context.Runtime.GetValue(source, property);
-                if (serializer == null) { return null; }
+                if (serializer == null)
+                { return null; }
 
                 var sb = new StringBuilder();
                 var writerSettings = new XmlWriterSettings
@@ -643,7 +648,7 @@ namespace System.Xaml
                 XamlType declaringType = xamlProperty.DeclaringType;
 
                 MemberMarkupInfo memberInfo;
-                if((xamlProperty == declaringType.GetAliasedProperty(XamlLanguage.Lang)) && (propertyValue is string))
+                if ((xamlProperty == declaringType.GetAliasedProperty(XamlLanguage.Lang)) && (propertyValue is string))
                 {
                     memberInfo = new MemberMarkupInfo()
                     {
@@ -679,13 +684,13 @@ namespace System.Xaml
                             if (objectInfo.Properties[0].XamlNode.Member == XamlLanguage.Items)
                             {
                                 var itemsMemberInfo = objectInfo.Properties[0] as MemberMarkupInfo;
-                                if(itemsMemberInfo != null && itemsMemberInfo.Children.Count > 0)
+                                if (itemsMemberInfo != null && itemsMemberInfo.Children.Count > 0)
                                 {
                                     //Check if the first element of the collection/dictionary is a ME and replace the SO with GO only if it is not an ME.
                                     //This is to handle cases where the first element is, say, null. If we remove the SO, then there is no way to
                                     //know if the collection is null or the first element is null.
                                     var itemInfo = itemsMemberInfo.Children[0] as ObjectMarkupInfo;
-                                    if(itemInfo == null || itemInfo.XamlNode.XamlType == null || !itemInfo.XamlNode.XamlType.IsMarkupExtension)
+                                    if (itemInfo == null || itemInfo.XamlNode.XamlType == null || !itemInfo.XamlNode.XamlType.IsMarkupExtension)
                                     {
                                         // change the member to GetObject
                                         objectInfo.XamlNode = new XamlNode(XamlNodeType.GetObject);
@@ -709,7 +714,8 @@ namespace System.Xaml
                 if (property != null)
                 {
                     propertyValue = context.Runtime.GetValue(sourceOrValue, property);
-                    if (propertyValue == null) { return null; }
+                    if (propertyValue == null)
+                    { return null; }
                 }
                 else
                 {
@@ -731,7 +737,7 @@ namespace System.Xaml
 
                 bool isPreviousItemValue = false;
                 IList<object> itemsList = context.Runtime.GetCollectionItems(propertyValue, xamlType);
-                for(int i = 0; i < itemsList.Count; i++)
+                for (int i = 0; i < itemsList.Count; i++)
                 {
                     var itemValue = itemsList[i];
 
@@ -760,7 +766,7 @@ namespace System.Xaml
                                     {
                                         if (memberInfo.Children.Count == 1)
                                         {
-                                            var childOvInfo = (ObjectOrValueMarkupInfo) memberInfo.Children[0];
+                                            var childOvInfo = (ObjectOrValueMarkupInfo)memberInfo.Children[0];
 
                                             if (childOvInfo is ValueMarkupInfo)
                                             {
@@ -806,20 +812,20 @@ namespace System.Xaml
             // 3. First element has leading whitespace
             static bool ShouldUnwrapDueToWhitespace(string value, XamlType xamlType, bool isFirstElementOfCollection, bool isLastElementOfCollection)
             {
-                if(XamlXmlWriter.HasSignificantWhitespace(value))
+                if (XamlXmlWriter.HasSignificantWhitespace(value))
                 {
-                    if(xamlType.IsWhitespaceSignificantCollection)
+                    if (xamlType.IsWhitespaceSignificantCollection)
                     {
-                        if(XamlXmlWriter.ContainsConsecutiveInnerSpaces(value) ||
+                        if (XamlXmlWriter.ContainsConsecutiveInnerSpaces(value) ||
                            XamlXmlWriter.ContainsWhitespaceThatIsNotSpace(value))
                         {
                             return true;
                         }
-                        else if(XamlXmlWriter.ContainsTrailingSpace(value) && isLastElementOfCollection)
+                        else if (XamlXmlWriter.ContainsTrailingSpace(value) && isLastElementOfCollection)
                         {
                             return true;
                         }
-                        else if(XamlXmlWriter.ContainsLeadingSpace(value) && isFirstElementOfCollection)
+                        else if (XamlXmlWriter.ContainsLeadingSpace(value) && isFirstElementOfCollection)
                         {
                             return true;
                         }
@@ -951,7 +957,7 @@ namespace System.Xaml
                     // that read-only properties must be attributed with DesignerSerializationVisibility.Content
                     // to visible. Unless RequireExplicitContentVisibility is set to true, we don't require that
                     // for readonly collection/dictionary/xdata.
-                    return !context.Settings.RequireExplicitContentVisibility || 
+                    return !context.Settings.RequireExplicitContentVisibility ||
                            GetSerializationVisibility(property) == DesignerSerializationVisibility.Content;
                 }
             }
@@ -1091,7 +1097,7 @@ namespace System.Xaml
                 removedProperties = null;
                 PartiallyOrderedList<string, MarkupInfo> propertiesWithDO = null;
 
-                for (int i = 0; i < properties.Count; )
+                for (int i = 0; i < properties.Count;)
                 {
                     var property = properties[i];
                     if (property.XamlNode.Member.DependsOn.Count > 0)
@@ -1156,7 +1162,7 @@ namespace System.Xaml
                 }
             }
 
-            public override void  FindNamespace(SerializerContext context)
+            public override void FindNamespace(SerializerContext context)
             {
                 if (XamlNode.NodeType == XamlNodeType.StartObject)
                 {
@@ -1639,7 +1645,8 @@ namespace System.Xaml
                     // If there aren't the same number of parameters as there are properties with
                     // ConstructorArgumentAttribute then we know this one won't match...
                     //
-                    if (constructorParameters.Length != ctorArgProps.Count) { continue; }
+                    if (constructorParameters.Length != ctorArgProps.Count)
+                    { continue; }
 
                     IList constructorArguments = new List<object>(constructorParameters.Length);
                     for (int i = 0; i < constructorParameters.Length; i++)
@@ -1660,7 +1667,8 @@ namespace System.Xaml
                         // At least one of the arguments has no matching property... break out of the loop and
                         // we'll move on to the next constructor.
                         //
-                        if (matchingProperty == null) { break; }
+                        if (matchingProperty == null)
+                        { break; }
 
                         constructorArguments.Add(context.Runtime.GetValue(value, matchingProperty));
                     }
@@ -1867,7 +1875,7 @@ namespace System.Xaml
                     foreach (var ap in props)
                     {
                         XamlType owningType = context.GetXamlType(ap.Key.DeclaringType);
-                        if(!owningType.IsVisibleTo(context.LocalAssembly))
+                        if (!owningType.IsVisibleTo(context.LocalAssembly))
                         {
                             continue;
                         }
@@ -2091,7 +2099,7 @@ namespace System.Xaml
 
             static bool IsNull(MemberMarkupInfo propertyInfo)
             {
-                return propertyInfo.Children.Count == 1 && 
+                return propertyInfo.Children.Count == 1 &&
                        propertyInfo.Children[0] is ObjectMarkupInfo objectInfo &&
                        objectInfo.XamlNode.XamlType == XamlLanguage.Null;
             }
@@ -2199,20 +2207,26 @@ namespace System.Xaml
                     bool xIsFactoryMethod = xInfo.IsFactoryMethod;
                     bool yIsFactoryMethod = yInfo.IsFactoryMethod;
 
-                    if (xIsFactoryMethod && !yIsFactoryMethod) { return XFirst; }
-                    if (yIsFactoryMethod && !xIsFactoryMethod) { return YFirst; }
+                    if (xIsFactoryMethod && !yIsFactoryMethod)
+                    { return XFirst; }
+                    if (yIsFactoryMethod && !xIsFactoryMethod)
+                    { return YFirst; }
 
                     bool xIsContentOrItemsProperty = xInfo.IsContent || (xProperty == XamlLanguage.Items);
                     bool yIsContentOrItemsProperty = yInfo.IsContent || (yProperty == XamlLanguage.Items);
 
-                    if (xIsContentOrItemsProperty && !yIsContentOrItemsProperty) { return YFirst; }
-                    if (yIsContentOrItemsProperty && !xIsContentOrItemsProperty) { return XFirst; }
+                    if (xIsContentOrItemsProperty && !yIsContentOrItemsProperty)
+                    { return YFirst; }
+                    if (yIsContentOrItemsProperty && !xIsContentOrItemsProperty)
+                    { return XFirst; }
 
                     bool xIsAttributableMarkupExtension = xInfo.IsAttributableMarkupExtension;
                     bool yIsAttributableMarkupExtension = yInfo.IsAttributableMarkupExtension;
 
-                    if (xIsAttributableMarkupExtension && !yIsAttributableMarkupExtension) { return XFirst; }
-                    if (yIsAttributableMarkupExtension && !xIsAttributableMarkupExtension) { return YFirst; }
+                    if (xIsAttributableMarkupExtension && !yIsAttributableMarkupExtension)
+                    { return XFirst; }
+                    if (yIsAttributableMarkupExtension && !xIsAttributableMarkupExtension)
+                    { return YFirst; }
 
                     bool xIsAtomic = xInfo.IsAtomic;
                     bool yIsAtomic = yInfo.IsAtomic;
@@ -2223,26 +2237,36 @@ namespace System.Xaml
                     bool xIsAtomicAndNotInitialization = xIsAtomic && !xIsInitialization;
                     bool yIsAtomicAndNotInitialization = yIsAtomic && !yIsInitialization;
 
-                    if (xIsAtomicAndNotInitialization && !yIsAtomicAndNotInitialization) { return XFirst; }
-                    if (yIsAtomicAndNotInitialization && !xIsAtomicAndNotInitialization) { return YFirst; }
+                    if (xIsAtomicAndNotInitialization && !yIsAtomicAndNotInitialization)
+                    { return XFirst; }
+                    if (yIsAtomicAndNotInitialization && !xIsAtomicAndNotInitialization)
+                    { return YFirst; }
 
-                    if (xIsAtomic && !yIsAtomic) { return XFirst; }
-                    if (yIsAtomic && !xIsAtomic) { return YFirst; }
+                    if (xIsAtomic && !yIsAtomic)
+                    { return XFirst; }
+                    if (yIsAtomic && !xIsAtomic)
+                    { return YFirst; }
 
-                    if (xIsInitialization && !yIsInitialization) { return XFirst; }
-                    if (yIsInitialization && !xIsInitialization) { return YFirst; }
+                    if (xIsInitialization && !yIsInitialization)
+                    { return XFirst; }
+                    if (yIsInitialization && !xIsInitialization)
+                    { return YFirst; }
 
                     bool xIsArgumentsDirective = (xProperty == XamlLanguage.Arguments);
                     bool yIsArgumentsDirective = (yProperty == XamlLanguage.Arguments);
 
-                    if (xIsArgumentsDirective && !yIsArgumentsDirective) { return XFirst; }
-                    if (yIsArgumentsDirective && !xIsArgumentsDirective) { return YFirst; }
+                    if (xIsArgumentsDirective && !yIsArgumentsDirective)
+                    { return XFirst; }
+                    if (yIsArgumentsDirective && !xIsArgumentsDirective)
+                    { return YFirst; }
 
                     bool xIsDirective = xProperty.IsDirective;
                     bool yIsDirective = yProperty.IsDirective;
 
-                    if (xIsDirective && !yIsDirective) { return XFirst; }
-                    if (yIsDirective && !xIsDirective) { return YFirst; }
+                    if (xIsDirective && !yIsDirective)
+                    { return XFirst; }
+                    if (yIsDirective && !xIsDirective)
+                    { return YFirst; }
 
                     return String.CompareOrdinal(xProperty.Name, yProperty.Name);
                 }
@@ -2276,33 +2300,43 @@ namespace System.Xaml
                     bool xIsPositionalParameterProperty = (xProperty == XamlLanguage.PositionalParameters);
                     bool yIsPositionalParameterProperty = (yProperty == XamlLanguage.PositionalParameters);
 
-                    if (xIsPositionalParameterProperty && !yIsPositionalParameterProperty) { return XFirst; }
-                    if (yIsPositionalParameterProperty && !xIsPositionalParameterProperty) { return YFirst; }
+                    if (xIsPositionalParameterProperty && !yIsPositionalParameterProperty)
+                    { return XFirst; }
+                    if (yIsPositionalParameterProperty && !xIsPositionalParameterProperty)
+                    { return YFirst; }
 
                     bool xIsFactoryMethod = xInfo.IsFactoryMethod;
                     bool yIsFactoryMethod = yInfo.IsFactoryMethod;
 
-                    if (xIsFactoryMethod && !yIsFactoryMethod) { return XFirst; }
-                    if (yIsFactoryMethod && !xIsFactoryMethod) { return YFirst; }
+                    if (xIsFactoryMethod && !yIsFactoryMethod)
+                    { return XFirst; }
+                    if (yIsFactoryMethod && !xIsFactoryMethod)
+                    { return YFirst; }
 
                     bool xIsAttributableMarkupExtension = xInfo.IsAttributableMarkupExtension;
 
                     bool yIsAttributableMarkupExtension = yInfo.IsAttributableMarkupExtension;
 
-                    if (xIsAttributableMarkupExtension && !yIsAttributableMarkupExtension) { return XFirst; }
-                    if (yIsAttributableMarkupExtension && !xIsAttributableMarkupExtension) { return YFirst; }
+                    if (xIsAttributableMarkupExtension && !yIsAttributableMarkupExtension)
+                    { return XFirst; }
+                    if (yIsAttributableMarkupExtension && !xIsAttributableMarkupExtension)
+                    { return YFirst; }
 
                     bool xIsAtomic = xInfo.IsAtomic;
                     bool yIsAtomic = yInfo.IsAtomic;
 
-                    if (xIsAtomic && !yIsAtomic) { return XFirst; }
-                    if (yIsAtomic && !xIsAtomic) { return YFirst; }
+                    if (xIsAtomic && !yIsAtomic)
+                    { return XFirst; }
+                    if (yIsAtomic && !xIsAtomic)
+                    { return YFirst; }
 
                     bool xIsDirective = xProperty.IsDirective;
                     bool yIsDirective = yProperty.IsDirective;
 
-                    if (xIsDirective && !yIsDirective) { return XFirst; }
-                    if (yIsDirective && !yIsDirective) { return YFirst; }
+                    if (xIsDirective && !yIsDirective)
+                    { return XFirst; }
+                    if (yIsDirective && !yIsDirective)
+                    { return YFirst; }
 
                     return String.CompareOrdinal(xProperty.Name, yProperty.Name);
                 }
@@ -2348,65 +2382,65 @@ namespace System.Xaml
 
                 return base.Decompose();
             }
-        //    public override bool IsAttributableMarkupExtension
-        //    {
-        //        get
-        //        {
-        //            // See comment in ReferenceSerializationInfo.Write()
-        //            //
-        //            // We are only attributable if we will not maybe be the one that is choosen to be
-        //            // written out as a 'reference', note that this means that for sibling properties
-        //            // which both refer to the same object one will be written as a reference in
-        //            // element form.
-        //            //
-        //            if (!Target.ShouldWriteAsReference.HasValue)
-        //            {
-        //                if (Target.Scope == Scope)
-        //                {
-        //                    return false;
-        //                }
-        //            }
+            //    public override bool IsAttributableMarkupExtension
+            //    {
+            //        get
+            //        {
+            //            // See comment in ReferenceSerializationInfo.Write()
+            //            //
+            //            // We are only attributable if we will not maybe be the one that is choosen to be
+            //            // written out as a 'reference', note that this means that for sibling properties
+            //            // which both refer to the same object one will be written as a reference in
+            //            // element form.
+            //            //
+            //            if (!Target.ShouldWriteAsReference.HasValue)
+            //            {
+            //                if (Target.Scope == Scope)
+            //                {
+            //                    return false;
+            //                }
+            //            }
 
-        //            return true;
-        //        }
-        //        set
-        //        {
-        //            base.IsAttributableMarkupExtension = value;
-        //        }
-        //    }
+            //            return true;
+            //        }
+            //        set
+            //        {
+            //            base.IsAttributableMarkupExtension = value;
+            //        }
+            //    }
 
-        //    public override void Write(XamlWriter writer)
-        //    {
-        //        // There is a bit of a dance that is performed between ReferenceSerializationInfos
-        //        // and RecordSerializationInfos in that it may be the case that a RecordSerializationInfo
-        //        // has been nominated to be the "one" which is written out as a record, but a reference
-        //        // to that thing which came later in the initial object graph walk gets serialized first
-        //        // due to property sorting.
-        //        //
-        //        // If that is the case and the record and reference are in the same visibility scope
-        //        // then we let the reference write out the record in its place and this record is
-        //        // marked to later be written out as a reference instead.
-        //        //
-        //        if (!Target.ShouldWriteAsReference.HasValue)
-        //        {
-        //            if (Target.Scope == Scope)
-        //            {
-        //                Target.ShouldWriteAsReference = true;
-        //                Target.Write(writer, true);
-        //                return;
-        //            }
-        //        }
+            //    public override void Write(XamlWriter writer)
+            //    {
+            //        // There is a bit of a dance that is performed between ReferenceSerializationInfos
+            //        // and RecordSerializationInfos in that it may be the case that a RecordSerializationInfo
+            //        // has been nominated to be the "one" which is written out as a record, but a reference
+            //        // to that thing which came later in the initial object graph walk gets serialized first
+            //        // due to property sorting.
+            //        //
+            //        // If that is the case and the record and reference are in the same visibility scope
+            //        // then we let the reference write out the record in its place and this record is
+            //        // marked to later be written out as a reference instead.
+            //        //
+            //        if (!Target.ShouldWriteAsReference.HasValue)
+            //        {
+            //            if (Target.Scope == Scope)
+            //            {
+            //                Target.ShouldWriteAsReference = true;
+            //                Target.Write(writer, true);
+            //                return;
+            //            }
+            //        }
 
-        //        writer.WriteStartRecordAsMarkupExtension(TypeName);
-        //        writer.WriteStartMember("Name");
-        //        writer.WriteAtom(Target.Name);
-        //        writer.WriteEndMember();
-        //        foreach (var property in Properties)
-        //        {
-        //            property.Write(writer);
-        //        }
-        //        writer.WriteEndRecord();
-        //    }
+            //        writer.WriteStartRecordAsMarkupExtension(TypeName);
+            //        writer.WriteStartMember("Name");
+            //        writer.WriteAtom(Target.Name);
+            //        writer.WriteEndMember();
+            //        foreach (var property in Properties)
+            //        {
+            //            property.Write(writer);
+            //        }
+            //        writer.WriteEndRecord();
+            //    }
         }
 
         class ReferenceTable
@@ -2446,7 +2480,8 @@ namespace System.Xaml
                 if (!objectGraphTable.TryGetValue(value, out result))
                 {
                     // this is a recursive search, because objects in the parent namescopes are still visible
-                    if (parent != null) { return parent.Find(value); }
+                    if (parent != null)
+                    { return parent.Find(value); }
                 }
                 return result;
             }
@@ -2551,7 +2586,7 @@ namespace System.Xaml
                 }
             }
 
-            public bool IsRoot{ get; set; }
+            public bool IsRoot { get; set; }
 
             public Type RootType { get; set; }
 
@@ -2636,7 +2671,7 @@ namespace System.Xaml
             public XamlType LocalAssemblyAwareGetXamlType(Type clrType)
             {
                 XamlType result = GetXamlType(clrType);
-                if(!result.IsVisibleTo(LocalAssembly) && !typeof(Type).IsAssignableFrom(clrType))
+                if (!result.IsVisibleTo(LocalAssembly) && !typeof(Type).IsAssignableFrom(clrType))
                 {
                     throw new XamlObjectReaderException(SR.Get(SRID.ObjectReader_TypeNotVisible, clrType.FullName));
                 }
@@ -2679,17 +2714,20 @@ namespace System.Xaml
 
             public bool TryValueSerializeToString(ValueSerializer valueSerializer, TypeConverter propertyConverter, SerializerContext context, ref object value)
             {
-                if (value == null) { return false; }
+                if (value == null)
+                { return false; }
 
                 // skip using ValueSerializer if value is string
-                if (value is string) { return true; }
+                if (value is string)
+                { return true; }
 
                 // we test if value roundtrips using either the type converter on the property or the type of the actual instance
 
                 XamlType valueXamlType = context.GetXamlType(value.GetType());
                 TypeConverter actualTypeConverter = TypeConverterExtensions.GetConverterInstance(valueXamlType.TypeConverter);
                 if (!CanRoundtripUsingValueSerializer(valueSerializer, propertyConverter, value) &&
-                    !CanRoundtripUsingValueSerializer(valueSerializer, actualTypeConverter, value)) { return false; }
+                    !CanRoundtripUsingValueSerializer(valueSerializer, actualTypeConverter, value))
+                { return false; }
 
                 value = Runtime.ConvertToString(ValueSerializerContext, valueSerializer, value);
                 return true;
@@ -2697,13 +2735,16 @@ namespace System.Xaml
 
             public bool TryTypeConvertToString(TypeConverter converter, ref object value)
             {
-                if (value == null) { return false; }
+                if (value == null)
+                { return false; }
 
                 // Regardless of what the type converter says, if the value of the property is now a string, then
                 // we can just write the string straight in.
                 //
-                if (value is string) { return true; }
-                if (!CanRoundTripString(converter)) { return false; }
+                if (value is string)
+                { return true; }
+                if (!CanRoundTripString(converter))
+                { return false; }
 
                 value = ConvertTo<string>(converter, value);
                 return true;
@@ -2711,8 +2752,10 @@ namespace System.Xaml
 
             public bool TryConvertToMarkupExtension(TypeConverter converter, ref object value)
             {
-                if (value == null) { return false; }
-                if (!Runtime.CanConvertTo(TypeDescriptorContext, converter, typeof(MarkupExtension))) { return false; }
+                if (value == null)
+                { return false; }
+                if (!Runtime.CanConvertTo(TypeDescriptorContext, converter, typeof(MarkupExtension)))
+                { return false; }
 
                 value = ConvertTo<MarkupExtension>(converter, value);
                 return true;
@@ -2770,7 +2813,7 @@ namespace System.Xaml
             public bool IsPropertyReadVisible(XamlMember property)
             {
                 Type allowProtectedMemberOnType = null;
-                if(Settings.AllowProtectedMembersOnRoot && IsRoot)
+                if (Settings.AllowProtectedMembersOnRoot && IsRoot)
                 {
                     allowProtectedMemberOnType = RootType;
                 }
@@ -2780,7 +2823,7 @@ namespace System.Xaml
             public bool IsPropertyWriteVisible(XamlMember property)
             {
                 Type allowProtectedMemberOnType = null;
-                if(Settings.AllowProtectedMembersOnRoot && IsRoot)
+                if (Settings.AllowProtectedMembersOnRoot && IsRoot)
                 {
                     allowProtectedMemberOnType = RootType;
                 }
@@ -2814,11 +2857,16 @@ namespace System.Xaml
 
             public object GetService(Type serviceType)
             {
-                if (serviceType == typeof(IValueSerializerContext)) { return this; }
-                if (serviceType == typeof(ITypeDescriptorContext)) { return this; }
-                if (serviceType == typeof(INamespacePrefixLookup)) { return this; }
-                if (serviceType == typeof(IXamlSchemaContextProvider)) { return this; }
-                if (serviceType == typeof(IXamlNameProvider)) { return this; }
+                if (serviceType == typeof(IValueSerializerContext))
+                { return this; }
+                if (serviceType == typeof(ITypeDescriptorContext))
+                { return this; }
+                if (serviceType == typeof(INamespacePrefixLookup))
+                { return this; }
+                if (serviceType == typeof(IXamlSchemaContextProvider))
+                { return this; }
+                if (serviceType == typeof(IXamlNameProvider))
+                { return this; }
                 return null;
             }
 
@@ -2886,7 +2934,7 @@ namespace System.Xaml
 
                     if (!context.TryHoistNamespaceDeclaration(reader.Namespace))
                     {
-                        nodes.Add(new ValueMarkupInfo{ XamlNode = new XamlNode(XamlNodeType.NamespaceDeclaration, reader.Namespace) });
+                        nodes.Add(new ValueMarkupInfo { XamlNode = new XamlNode(XamlNodeType.NamespaceDeclaration, reader.Namespace) });
                     }
                 }
 
@@ -2902,36 +2950,36 @@ namespace System.Xaml
                 {
                     switch (reader.NodeType)
                     {
-                    case XamlNodeType.NamespaceDeclaration:
-                        nodes.Add(new ValueMarkupInfo{ XamlNode = new XamlNode(XamlNodeType.NamespaceDeclaration, reader.Namespace) });
-                        break;
+                        case XamlNodeType.NamespaceDeclaration:
+                            nodes.Add(new ValueMarkupInfo { XamlNode = new XamlNode(XamlNodeType.NamespaceDeclaration, reader.Namespace) });
+                            break;
 
-                    case XamlNodeType.StartObject:
-                        nodes.Add(new ValueMarkupInfo{ XamlNode = new XamlNode(XamlNodeType.StartObject, reader.Type) });
-                        break;
+                        case XamlNodeType.StartObject:
+                            nodes.Add(new ValueMarkupInfo { XamlNode = new XamlNode(XamlNodeType.StartObject, reader.Type) });
+                            break;
 
-                    case XamlNodeType.GetObject:
-                        nodes.Add(new ValueMarkupInfo{ XamlNode = new XamlNode(XamlNodeType.GetObject) });
-                        break;
+                        case XamlNodeType.GetObject:
+                            nodes.Add(new ValueMarkupInfo { XamlNode = new XamlNode(XamlNodeType.GetObject) });
+                            break;
 
-                    case XamlNodeType.EndObject:
-                        nodes.Add(new ValueMarkupInfo{ XamlNode = new XamlNode(XamlNodeType.EndObject) });
-                        break;
+                        case XamlNodeType.EndObject:
+                            nodes.Add(new ValueMarkupInfo { XamlNode = new XamlNode(XamlNodeType.EndObject) });
+                            break;
 
-                    case XamlNodeType.StartMember:
-                        nodes.Add(new ValueMarkupInfo{ XamlNode = new XamlNode(XamlNodeType.StartMember, reader.Member) });
-                        break;
+                        case XamlNodeType.StartMember:
+                            nodes.Add(new ValueMarkupInfo { XamlNode = new XamlNode(XamlNodeType.StartMember, reader.Member) });
+                            break;
 
-                    case XamlNodeType.EndMember:
-                        nodes.Add(new ValueMarkupInfo{ XamlNode = new XamlNode(XamlNodeType.EndMember) });
-                        break;
+                        case XamlNodeType.EndMember:
+                            nodes.Add(new ValueMarkupInfo { XamlNode = new XamlNode(XamlNodeType.EndMember) });
+                            break;
 
-                    case XamlNodeType.Value:
-                        nodes.Add(new ValueMarkupInfo{ XamlNode = new XamlNode(XamlNodeType.Value, reader.Value) });
-                        break;
+                        case XamlNodeType.Value:
+                            nodes.Add(new ValueMarkupInfo { XamlNode = new XamlNode(XamlNodeType.Value, reader.Value) });
+                            break;
 
-                    default:
-                        throw new InvalidOperationException(SR.Get(SRID.XamlFactoryInvalidXamlNode, reader.NodeType));
+                        default:
+                            throw new InvalidOperationException(SR.Get(SRID.XamlFactoryInvalidXamlNode, reader.NodeType));
                     }
                 }
 

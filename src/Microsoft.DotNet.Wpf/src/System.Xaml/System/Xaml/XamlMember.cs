@@ -41,7 +41,7 @@ namespace System.Xaml
 
         // Known property
         public XamlMember(PropertyInfo propertyInfo, XamlSchemaContext schemaContext)
-            :this(propertyInfo, schemaContext, null)
+            : this(propertyInfo, schemaContext, null)
         {
         }
 
@@ -70,12 +70,12 @@ namespace System.Xaml
 
         // Known event
         public XamlMember(EventInfo eventInfo, XamlSchemaContext schemaContext)
-            :this(eventInfo, schemaContext, null)
+            : this(eventInfo, schemaContext, null)
         {
         }
 
         public XamlMember(EventInfo eventInfo, XamlSchemaContext schemaContext, XamlMemberInvoker invoker)
-            :this(eventInfo, schemaContext, invoker, new MemberReflector(true /*isEvent*/))
+            : this(eventInfo, schemaContext, invoker, new MemberReflector(true /*isEvent*/))
         {
         }
 
@@ -100,13 +100,13 @@ namespace System.Xaml
         // Known attachable property
         public XamlMember(string attachablePropertyName, MethodInfo getter, MethodInfo setter,
             XamlSchemaContext schemaContext)
-            :this(attachablePropertyName, getter, setter, schemaContext, null)
+            : this(attachablePropertyName, getter, setter, schemaContext, null)
         {
         }
 
         public XamlMember(string attachablePropertyName, MethodInfo getter, MethodInfo setter,
             XamlSchemaContext schemaContext, XamlMemberInvoker invoker)
-            :this(attachablePropertyName, getter, setter, schemaContext, invoker, new MemberReflector(getter, setter, false /*isEvent*/))
+            : this(attachablePropertyName, getter, setter, schemaContext, invoker, new MemberReflector(getter, setter, false /*isEvent*/))
         {
         }
 
@@ -136,7 +136,7 @@ namespace System.Xaml
 
         // Known attachable event
         public XamlMember(string attachableEventName, MethodInfo adder, XamlSchemaContext schemaContext)
-            :this(attachableEventName, adder, schemaContext, null)
+            : this(attachableEventName, adder, schemaContext, null)
         {
         }
 
@@ -397,7 +397,7 @@ namespace System.Xaml
         /// a property of a MarkupExtension as a ReadOnlyDictionary. Opening bracket is the
         /// key, while the value is the closing bracket.
         /// </summary>
-        public IReadOnlyDictionary<char,char> MarkupExtensionBracketCharacters
+        public IReadOnlyDictionary<char, char> MarkupExtensionBracketCharacters
         {
             get
             {
@@ -519,7 +519,7 @@ namespace System.Xaml
             MethodInfo setter = Setter;
             if (setter != null)
             {
-                return MemberReflector.GenericArgumentsAreVisibleTo(setter, accessingAssembly, SchemaContext) && 
+                return MemberReflector.GenericArgumentsAreVisibleTo(setter, accessingAssembly, SchemaContext) &&
                     (MemberReflector.IsInternalVisibleTo(setter, accessingAssembly, SchemaContext) ||
                     MemberReflector.IsProtectedVisibleTo(setter, accessingType, SchemaContext));
             }
@@ -723,7 +723,7 @@ namespace System.Xaml
         /// a property of a MarkupExtension as a ReadOnlyDictionary. Opening bracket is the
         /// key, while the value is the closing bracket.
         /// </summary>
-        protected virtual IReadOnlyDictionary<char,char> LookupMarkupExtensionBracketCharacters()
+        protected virtual IReadOnlyDictionary<char, char> LookupMarkupExtensionBracketCharacters()
         {
             if (AreAttributesAvailable)
             {
@@ -1010,7 +1010,7 @@ namespace System.Xaml
         public override int GetHashCode()
         {
             Debug.Assert(DeclaringType != null, "XamlDirective should not call into base.GetHashCode");
-            return (Name == null ?  0 : Name.GetHashCode()) ^ (int)_memberType ^ DeclaringType.GetHashCode();
+            return (Name == null ? 0 : Name.GetHashCode()) ^ (int)_memberType ^ DeclaringType.GetHashCode();
         }
 
         public bool Equals(XamlMember other)

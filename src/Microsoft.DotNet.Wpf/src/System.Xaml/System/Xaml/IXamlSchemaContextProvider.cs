@@ -8,5 +8,4 @@ namespace System.Xaml
     {
         XamlSchemaContext SchemaContext { get; }
     }
-
 }

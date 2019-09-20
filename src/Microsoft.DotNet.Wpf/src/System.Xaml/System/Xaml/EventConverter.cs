@@ -44,12 +44,12 @@ namespace System.Xaml
 
         internal static void GetRootObjectAndDelegateType(ITypeDescriptorContext context, out object rootObject, out Type delegateType)
         {
-            rootObject = null; 
+            rootObject = null;
             delegateType = null;
 
-            if (context == null) 
+            if (context == null)
             {
-                return; 
+                return;
             }
 
             IRootObjectProvider rootObjectService = context.GetService(typeof(IRootObjectProvider)) as IRootObjectProvider;

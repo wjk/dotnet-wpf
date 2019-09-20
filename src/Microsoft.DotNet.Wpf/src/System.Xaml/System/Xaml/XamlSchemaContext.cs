@@ -36,8 +36,8 @@ namespace System.Xaml
         private readonly ReadOnlyCollection<Assembly> _referenceAssemblies;
 
         // take this lock when iterating new assemblies in the AppDomain/RefAssm
-        object _syncExaminingAssemblies;               
-        
+        object _syncExaminingAssemblies;
+
         #endregion
 
         #region Constructors
@@ -186,7 +186,7 @@ namespace System.Xaml
             if (sb.Length > 0)
             {
                 string result = sb.ToString();
-                
+
                 if (KS.Eq(result, XamlLanguage.PreferredPrefix))
                 {
                     // Prevent this algorithm from stealing 'x'
@@ -397,11 +397,11 @@ namespace System.Xaml
             {
                 return true;
             }
-            
+
             // Then look for XmlnsCompatAttributes
             UpdateXmlNsInfo();
             compatibleNamespace = GetCompatibleNamespace(xamlNamespace);
-            
+
             // Fall back to just using the requested namespace;
             if (compatibleNamespace == null)
             {
@@ -488,7 +488,7 @@ namespace System.Xaml
         private ConcurrentDictionary<Type, XamlType> _masterTypeList;
         private ConcurrentDictionary<ReferenceEqualityTuple<Type, XamlType, Type>, object> _masterValueConverterList;
         private ConcurrentDictionary<ReferenceEqualityTuple<MemberInfo, MemberInfo>, XamlMember> _masterMemberList;
-        private ConcurrentDictionary<XamlType, Dictionary<string,SpecialBracketCharacters> > _masterBracketCharacterCache;
+        private ConcurrentDictionary<XamlType, Dictionary<string, SpecialBracketCharacters>> _masterBracketCharacterCache;
 
         // Security note: all of these ConcurrentDictionaries use Reference Equality to prevent spoofing of 
         // RuntimeTypes/Members by other custom derived descendants of System.Type/MemberInfo.
@@ -497,7 +497,7 @@ namespace System.Xaml
         // type, we would get the spoofed one instead. Using reference equality avoids that.
 
         // Thread-safe cache - always use TryAdd or TryUpdate to write 
-        private ConcurrentDictionary<XamlType, Dictionary<string, SpecialBracketCharacters> > MasterBracketCharacterCache
+        private ConcurrentDictionary<XamlType, Dictionary<string, SpecialBracketCharacters>> MasterBracketCharacterCache
         {
             get
             {
@@ -581,7 +581,7 @@ namespace System.Xaml
                     bracketCharacterCache = TryAdd(MasterBracketCharacterCache, type, bracketCharacterCache);
                 }
             }
-            
+
             return bracketCharacterCache;
         }
 
@@ -597,7 +597,7 @@ namespace System.Xaml
             {
                 string constructorArgumentName = member.ConstructorArgument;
                 string propertyName = member.Name;
-                IReadOnlyDictionary<char,char> markupExtensionBracketCharactersList = member.MarkupExtensionBracketCharacters;
+                IReadOnlyDictionary<char, char> markupExtensionBracketCharactersList = member.MarkupExtensionBracketCharacters;
                 SpecialBracketCharacters splBracketCharacters = markupExtensionBracketCharactersList != null && markupExtensionBracketCharactersList.Count > 0
                     ? new SpecialBracketCharacters(markupExtensionBracketCharactersList)
                     : null;
@@ -613,7 +613,7 @@ namespace System.Xaml
             }
 
             return map.Count > 0 ? map : null;
-        } 
+        }
 
         protected internal XamlValueConverter<TConverterBase> GetValueConverter<TConverterBase>(
             Type converterType, XamlType targetType)
@@ -719,7 +719,7 @@ namespace System.Xaml
 
         // take this lock when modifying _unexaminedAssemblies or _isGCCallbackPending
         // Acquisition order: If also taking _syncExaminingAssemblies, take it first
-        object _syncAccessingUnexaminedAssemblies;     
+        object _syncAccessingUnexaminedAssemblies;
 
         // This dictionary is also thread-safe for single reads and writes, but if you're
         // iterating them, lock on _syncExaminingAssemblies to ensure consistent results
@@ -751,7 +751,7 @@ namespace System.Xaml
             get
             {
                 if (_namespaceByUriList == null)
-                    Interlocked.CompareExchange(ref _namespaceByUriList,  CreateDictionary<string, XamlNamespace>(), null);
+                    Interlocked.CompareExchange(ref _namespaceByUriList, CreateDictionary<string, XamlNamespace>(), null);
                 return _namespaceByUriList;
             }
         }
