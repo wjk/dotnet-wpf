@@ -13,10 +13,6 @@ using System.Xaml;
 using System.Xaml.Replacements;
 using MS.Internal.Serialization;
 
-//DateTimeConverter2
-
-//SRID
-
 #pragma warning disable 1634, 1691  // suppressing PreSharp warnings
 
 namespace System.Windows.Markup
