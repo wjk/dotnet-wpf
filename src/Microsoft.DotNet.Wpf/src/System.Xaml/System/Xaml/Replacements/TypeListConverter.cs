@@ -10,7 +10,7 @@ namespace System.Xaml.Replacements
 {
     // Not sure if this type converter is used at all.
     // we need to either make this a useful type converter or remove the code.
-    
+
     /// <summary>
     /// TypeConverter for System.Type[]
     /// </summary>
@@ -39,7 +39,7 @@ namespace System.Xaml.Replacements
             return base.ConvertFrom(context, culture, value);
         }
 
-        
+
     }
 
     internal static class StringHelpers
