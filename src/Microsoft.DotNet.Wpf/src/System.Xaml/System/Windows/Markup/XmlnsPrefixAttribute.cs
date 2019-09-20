@@ -48,7 +48,7 @@ namespace System.Windows.Markup
         public XmlnsPrefixAttribute(string xmlNamespace, string prefix)
         {
             XmlNamespace = xmlNamespace ?? throw new ArgumentNullException(nameof(xmlNamespace));
-            Prefix= prefix ?? throw new ArgumentNullException(nameof(prefix));
+            Prefix = prefix ?? throw new ArgumentNullException(nameof(prefix));
         }
 
         /// <summary>
@@ -60,6 +60,6 @@ namespace System.Windows.Markup
         /// New Xml Namespace
         /// </summary>
         public string Prefix { get; }
-   }
+    }
 }
 
