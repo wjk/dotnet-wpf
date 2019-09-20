@@ -40,7 +40,5 @@ namespace System.Windows.Markup
         {
             return null;
         }
-
     }
 }
-
