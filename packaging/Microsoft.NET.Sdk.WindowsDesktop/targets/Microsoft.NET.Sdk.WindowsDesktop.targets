@@ -133,19 +133,6 @@
 
   </Target>
 
-  <!-- 
-    This warning can be suppressed by setting $(MSBuildWarningsAsMessages) property, like this:
-    <PropertyGroup>
-      <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);NETSDK1106</MSBuildWarningsAsMessages>
-    </PropertyGroup>
-  --> 
-  <Target Name="_WindowsDesktopFrameworkRequiresUseWpfOrUseWindowsForms"
-          BeforeTargets="_CheckForInvalidConfigurationAndPlatform"
-          Condition="('$(_TargetFrameworkVersionValue)' != '$(_UndefinedTargetFrameworkVersion)') And ('$(_TargetFrameworkVersionValue)' >= '$(_WindowsDesktopSdkTargetFrameworkVersionFloor)')">
-    <NetSdkWarning ResourceName="WindowsDesktopFrameworkRequiresUseWpfOrUseWindowsForms" 
-                   Condition="'$(UseWpf)' != 'true' And '$(UseWindowsForms)' != 'true'"/>
-  </Target>
-
     <!-- 
     This warning can be suppressed by setting $(MSBuildWarningsAsMessages) property, like this:
     <PropertyGroup>
