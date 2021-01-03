@@ -21,7 +21,7 @@ if ($BinaryPackagePath64Bit -ne $null) {
   Expand-Archive -DestinationPath bin_x64 -Path $BinaryPackagePath64Bit.Fullname
 }
 
-copy -Recurse sdk\targets, sdk\tools output -Force
+copy -Recurse sdk\tools output -Force
 copy -Recurse bin_common\ref, bin_common\lib, bin_common\runtimes output -Force
 if ($BinaryPackagePath64Bit -ne $null) {
   copy -Recurse bin_x64\runtimes\win-x64 output\runtimes -Force
