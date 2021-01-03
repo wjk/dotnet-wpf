@@ -4,9 +4,7 @@ param(
     [System.IO.FileInfo]$SdkPackagePath,
     [System.IO.FileInfo]$BinaryPackagePath,
     [System.IO.FileInfo]$BinaryPackagePath64Bit = $null,
-    [System.IO.FileInfo]$NuspecTemplatePath, 
-
-    [string]$VersionTag = '0'
+    [System.IO.FileInfo]$NuspecTemplatePath
 )
 
 mkdir $WorkDirectory.FullName -ErrorAction SilentlyContinue | Out-Null
@@ -53,7 +51,8 @@ $nuspec = $nuspec.Replace('%FILES%', $xml)
 $date = Get-Date
 $year = $date.Year - 2000
 
-$nuspec = $nuspec.Replace('%VERSION%', "1.0.$($year)$($date.Month.ToString('D2'))$($date.Day.ToString('D2')).$($VersionTag)")
+$nuspec = $nuspec.Replace('%VERSION%', "1.0.$($year)$($date.Month.ToString('D2'))$($date.Day.ToString('D2'))." + `
+  "$($date.Hour.ToString('D2'))$($date.Minute.ToString('D2'))$($date.Second.ToString('D2'))")
 Set-Content wpf.nuspec $nuspec
 
 if (-not [System.IO.File]::Exists('nuget.exe')) {
