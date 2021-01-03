@@ -19,4 +19,7 @@ MembersMustExist : Member 'internal void System.Windows.Media.Imaging.BitmapDeco
 MembersMustExist : Member 'internal void System.Windows.Media.Imaging.BitmapEncoder.SealObject()' does not exist in the implementation but it does exist in the contract.
 MembersMustExist : Member 'internal System.Windows.Media.TextFormatting.TextParagraphCache System.Windows.Media.TextFormatting.TextFormatter.CreateParagraphCache(System.Windows.Media.TextFormatting.TextSource, System.Int32, System.Double, System.Windows.Media.TextFormatting.TextParagraphProperties, System.Windows.Media.TextFormatting.TextLineBreak, System.Windows.Media.TextFormatting.TextRunCache)' does not exist in the implementation but it does exist in the contract.
 CannotRemoveBaseTypeOrInterface : Type 'System.Windows.Resources.AssemblyAssociatedContentFileAttribute' does not implement interface 'System.Runtime.InteropServices._Attribute' in the implementation but it does in the contract.
-Total Issues: 20
+MembersMustExist : Member 'public System.Windows.DependencyProperty System.Windows.DependencyProperty System.Windows.Controls.Label.RecognizesAccessKeyProperty' does not exist in the implementation but it does exist in the contract.
+MembersMustExist : Member 'public System.Boolean System.Windows.Controls.Label.RecognizesAccessKey.get()' does not exist in the implementation but it does exist in the contract.
+MembersMustExist : Member 'public void System.Windows.Controls.Label.RecognizesAccessKey.set(System.Boolean)' does not exist in the implementation but it does exist in the contract.
+Total Issues: 23

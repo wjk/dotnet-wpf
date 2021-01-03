@@ -222,9 +222,9 @@ namespace System.Windows.Markup
                 _assemblyPathTable[asmName] = assemblyPath;
             }
 
-#if PBTCOMPILER
             PreLoadDefaultAssemblies(asmName, assemblyPath);
-#else
+
+#if !PBTCOMPILER
             // Allow people to reset the path of previously loaded assemblies
             // so they can be loaded again.   The is the Dev build/load/build/load
             // Designer scenario.  (Don't mess with GACed assemblies)
@@ -399,9 +399,6 @@ namespace System.Windows.Markup
 #endregion Assemblies
 
 #region AssemblyLoading
-
-#if  PBTCOMPILER
-
         private void PreLoadDefaultAssemblies(string asmName, string asmPath)
         {
             if (AssemblyWB == null && string.Compare(asmName, _assemblyNames[0], StringComparison.OrdinalIgnoreCase) == 0)
@@ -427,7 +424,6 @@ namespace System.Windows.Markup
                 ReflectionHelper.LoadAssembly(asmName, asmPath);
             }
         }
-#endif
 
 #endregion AssemblyLoading
 
@@ -4118,25 +4114,28 @@ namespace System.Windows.Markup
         internal const string GeneratedNamespace = "XamlGeneratedNamespace";
         internal const string GeneratedInternalTypeHelperClassName = "GeneratedInternalTypeHelper";
 
-#if !PBTCOMPILER
         internal const string MarkupExtensionTemplateBindingString = "TemplateBinding ";
-#else
+
+#if PBTCOMPILER
         private static bool _hasInternals = false;
         private static bool _hasLocalReference = false;
         private bool _isProtectedAttributeAllowed = false;
+#endif
         internal static Assembly AssemblyWB = null;
         internal static Assembly AssemblyPC = null;
         internal static Assembly AssemblyPF = null;
 
         internal static void Clear()
         {
+#if PBTCOMPILER
             _hasInternals = false;
             _hasLocalReference = false;
+#endif
             AssemblyWB = null;
             AssemblyPC = null;
             AssemblyPF = null;
         }
-#endif
+
         // Map table associated with this XamlTypeMapper.  This contains information
         // about what is stored in BAML.  The XamlTypeMapper makes use of the caches in
         // the BamlMapTable to store some assembly, type and property information.
@@ -4223,7 +4222,7 @@ namespace System.Windows.Markup
     public class NamespaceMapEntry
 #endif
     {
-        #region Constructors
+#region Constructors
 
         ///<summary>
         /// NamespaceMapEntry default constructor
@@ -4270,10 +4269,10 @@ namespace System.Windows.Markup
             _assemblyPath = assemblyPath;
         }
 
-        #endregion Constructors
+#endregion Constructors
 
 
-        #region Properties
+#region Properties
 
         /// <summary>
         /// Xml namespace specified in the constructor
@@ -4333,7 +4332,7 @@ namespace System.Windows.Markup
         }
 
 
-        #endregion Properties
+#endregion Properties
 
         /// <summary>
         /// returns instance of the assembly associate with this

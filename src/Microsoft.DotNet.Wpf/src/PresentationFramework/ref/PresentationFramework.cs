@@ -5869,9 +5869,11 @@ namespace System.Windows.Controls
     public partial class Label : System.Windows.Controls.ContentControl
     {
         public static readonly System.Windows.DependencyProperty TargetProperty;
+        public static readonly System.Windows.DependencyProperty RecognizesAccessKeyProperty;
         public Label() { }
         [System.ComponentModel.TypeConverterAttribute(typeof(System.Windows.Markup.NameReferenceConverter))]
         public System.Windows.UIElement Target { get { throw null; } set { } }
+        public bool RecognizesAccessKey { get { throw null; } set { } }
         protected override System.Windows.Automation.Peers.AutomationPeer OnCreateAutomationPeer() { throw null; }
     }
     [System.Windows.LocalizabilityAttribute(System.Windows.LocalizationCategory.ListBox)]

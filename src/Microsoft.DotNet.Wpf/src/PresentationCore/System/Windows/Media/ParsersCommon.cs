@@ -435,11 +435,9 @@ namespace MS.Internal.Markup
             }
             else
             {
-                ReadOnlySpan<char> slice = _pathString.AsSpan(start, _curIndex - start);
-
                 try
                 {
-                    return double.Parse(slice, provider: _formatProvider);
+                    return double.Parse(_pathString.Substring(start, _curIndex - start), provider: _formatProvider);
                 }
                 catch (FormatException except)
                 {
