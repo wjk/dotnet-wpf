@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata minClientVersion="2.8.6">
+        <id>Sunburst.UpdatedWPF</id>
+        <version>%VERSION%</version>
+        <title>Updated open-source WPF</title>
+        <authors>Microsoft, William Kent</authors>
+        <description>A version of WPF that is actually maintained, with bug fixes and new features.</description>
+        <projectUrl>https://github.com/wjk/dotnet-wpf</projectUrl>
+        <license type="expression">MIT</license>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <copyright>© Microsoft Corporation &amp; William Kent. All rights reserved.</copyright>
+        <tags>WPF</tags>
+
+       <dependencies>
+         <group targetFramework=".NETCoreApp5.0" />
+       </dependencies>
+    </metadata>
+
+    <files>
+%FILES%
+    </files>
+</package>
