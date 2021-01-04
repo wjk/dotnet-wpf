@@ -20,27 +20,20 @@ mkdir sdk, bin_common, bin_x64, output | Out-Null
 
 Expand-Archive -DestinationPath sdk -Path $SdkPackagePath.FullName
 Expand-Archive -DestinationPath bin_common -Path $BinaryPackagePath.FullName
-if ($BinaryPackagePath64Bit -ne $null) {
-  Expand-Archive -DestinationPath bin_x64 -Path $BinaryPackagePath64Bit.Fullname
-}
-
-copy -Recurse sdk\tools output -Force
-copy -Recurse bin_common\ref, bin_common\lib, bin_common\runtimes output -Force
+Expand-Archive -DestinationPath bin_x64 -Path $BinaryPackagePath64Bit.Fullname
 
 $xml = ""
 ls -Recurse -File bin_common\lib, bin_common\runtimes | %{
   $rel = [System.IO.Path]::GetRelativePath("$($pwd.Path)\bin_common", $_.FullName)
   $xml += "<file target=`"$($rel)`" src=`"$($_.FullName)`" />`n"
 }
+ls -Recurse -File bin_x64\runtimes | %{
+  $rel = [System.IO.Path]::GetRelativePath("$($pwd.Path)\bin_x64", $_.FullName)
+  $xml += "<file target=`"$($rel)`" src=`"$($_.FullName)`" />`n"
+}
 ls -Recurse -File sdk\tools | %{
   $rel = [System.IO.Path]::GetRelativePath("$($pwd.Path)\sdk", $_.FullName)
   $xml += "<file target=`"$($rel)`" src=`"$($_.FullName)`" />`n"
-}
-if ($BinaryPackagePath64Bit -ne $null) {
-  ls -Recurse -File bin_x64\runtimes | %{
-    $rel = [System.IO.Path]::GetRelativePath("$($pwd.Path)\bin_x64", $_.FullName)
-    $xml += "<file target=`"$($rel)`" src=`"$($_.FullName)`" />`n"
-  }
 }
 
 mkdir output\build -Force | Out-Null
