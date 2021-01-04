@@ -45,4 +45,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: NuGet Package
-        path: artifacts/tmp/nuget/Sunburst.UpdateWPF.1.0.255.255.nupkg
+        path: artifacts/tmp/nupkg/Sunburst.UpdateWPF.1.0.255.255.nupkg
