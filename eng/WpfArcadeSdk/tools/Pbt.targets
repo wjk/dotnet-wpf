@@ -97,7 +97,7 @@
     otherwise import Microsoft.NET.Sdk.WindowsDesktop.targets from Microsoft.NET.Sdk.WindowsDesktop
   -->
   <Import Project="$(WpfSourceDir)PresentationBuildTasks\Microsoft.WinFX.targets"
-          Condition="'$(InternalMarkupCompilation)'=='true' And Exists('$(LocalMicrosoftWinFXTargets)') "/>
+          Condition="'$(InternalMarkupCompilation)'=='true' And Exists('$(LocalMicrosoftWinFXTargets)') And !$(MSBuildProjectName.EndsWith('_wpftmp'))"/>
 
   <!--
     _WindowsDesktopSdkTargetFrameworkVersionFloor, _UndefinedTargetFrameworkVersion and _TargetFrameworkVersionValue are
@@ -117,6 +117,6 @@
   </PropertyGroup>
   <Import Sdk="Microsoft.NET.Sdk.WindowsDesktop"
           Project="../targets/Microsoft.NET.Sdk.WindowsDesktop.targets"
-          Condition="'$(InternalMarkupCompilation)'=='true' And !Exists('$(LocalMicrosoftWinFXTargets)') "/>
+          Condition="'$(InternalMarkupCompilation)'=='true' And !Exists('$(LocalMicrosoftWinFXTargets)')  And !$(MSBuildProjectName.EndsWith('_wpftmp'))"/>
 
 </Project>
