@@ -55,6 +55,7 @@
     <PackagingAssemblyContent Include="PresentationBuildTasks.dll" />
     <PackagingAssemblyContent Include="System.Collections.Immutable.dll" />
     <PackagingAssemblyContent Include="System.Memory.dll" />
+    <PackagingAssemblyContent Include="System.Buffers.dll" />
     <PackagingAssemblyContent Include="System.Numerics.Vectors.dll" />
     <PackagingAssemblyContent Include="System.Reflection.Metadata.dll" />
     <PackagingAssemblyContent Include="System.Reflection.MetadataLoadContext.dll" />
