@@ -53,7 +53,7 @@ $nuspec = $nuspec.Replace('%FILES%', $xml)
 $date = Get-Date
 $year = $date.Year - 2000
 
-$nuspec = $nuspec.Replace('%VERSION%', "1.0.$($BuildNumberMajor).$($BuildNumberMinor))
+$nuspec = $nuspec.Replace('%VERSION%', "1.0.$($BuildNumberMajor).$($BuildNumberMinor)")
 Set-Content wpf.nuspec $nuspec
 
 if (-not [System.IO.File]::Exists('nuget.exe')) {
