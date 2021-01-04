@@ -321,4 +321,8 @@
     <PackageReference Include="System.CodeDom" Version="$(SystemCodeDomPackageVersionForPresentationBuildTasks)" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Microsoft.WinFX.targets" />
+  </ItemGroup>
+
 </Project>
