@@ -141,6 +141,9 @@ namespace Microsoft.Build.Tasks.Windows
                 // Add GeneratedCodeFiles to Compile item list.
                 AddNewItems(xmlProjectDoc, CompileTypeName, GeneratedCodeFiles);
 
+                // Add an explicit import of Microsoft.WinFX.targets
+                AddWpfTargetsImport(xmlProjectDoc, WpfTargetsFilePath);
+
                 string currentProjectName = Path.GetFileNameWithoutExtension(CurrentProject);
                 string currentProjectExtension = Path.GetExtension(CurrentProject);
 
@@ -250,6 +253,9 @@ namespace Microsoft.Build.Tasks.Windows
 
                 // Add GeneratedCodeFiles to Compile item list.
                 AddNewItems(xmlProjectDoc, CompileTypeName, GeneratedCodeFiles);
+
+                // Add an explicit import of Microsoft.WinFX.targets
+                AddWpfTargetsImport(xmlProjectDoc, WpfTargetsFilePath);
 
                 // Replace implicit SDK imports with explicit SDK imports
                 ReplaceImplicitImports(xmlProjectDoc); 
@@ -497,6 +503,10 @@ namespace Microsoft.Build.Tasks.Windows
         ///
         /// </summary>
         public string TemporaryTargetAssemblyProjectName 
+        { get; set; }
+
+        [Required]
+        public string WpfTargetsFilePath
         { get; set; }
 
 
@@ -757,6 +767,20 @@ namespace Microsoft.Build.Tasks.Windows
                     root.AppendChild(nodeImportTargets);
                 }
             }
+        }
+
+        static private void AddWpfTargetsImport(XmlDocument xmlProjectDoc, string importPath)
+        {
+            if (xmlProjectDoc == null || string.IsNullOrWhiteSpace(importPath))
+            {
+                return;
+            }
+
+            XmlElement importNode = xmlProjectDoc.CreateElement("Import", xmlProjectDoc.NamespaceURI);
+            XmlAttribute importAttribute = xmlProjectDoc.CreateAttribute("Project", xmlProjectDoc.NamespaceURI);
+            importAttribute.Value = importPath;
+            importNode.Attributes.Append(importAttribute);
+            xmlProjectDoc.DocumentElement.AppendChild(importNode);
         }
 
         #endregion Private Methods

@@ -482,6 +482,7 @@
                 IncludePackageReferencesDuringMarkupCompilation="$(IncludePackageReferencesDuringMarkupCompilation)"
                 Analyzers="$(Analyzers)" 
                 TemporaryTargetAssemblyProjectName="$(_TemporaryTargetAssemblyProjectName)"
+                WpfTargetsFilePath="$(MSBuildThisFileFullPath)"
                  >
 
        </GenerateTemporaryTargetAssembly>
