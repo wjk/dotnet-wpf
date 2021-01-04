@@ -26,9 +26,6 @@ if ($BinaryPackagePath64Bit -ne $null) {
 
 copy -Recurse sdk\tools output -Force
 copy -Recurse bin_common\ref, bin_common\lib, bin_common\runtimes output -Force
-if ($BinaryPackagePath64Bit -ne $null) {
-  copy -Recurse bin_x64\runtimes\win-x64 output\runtimes -Force
-}
 
 $xml = ""
 ls -Recurse -File bin_common\lib, bin_common\runtimes | %{
@@ -38,6 +35,12 @@ ls -Recurse -File bin_common\lib, bin_common\runtimes | %{
 ls -Recurse -File sdk\tools | %{
   $rel = [System.IO.Path]::GetRelativePath("$($pwd.Path)\sdk", $_.FullName)
   $xml += "<file target=`"$($rel)`" src=`"$($_.FullName)`" />`n"
+}
+if ($BinaryPackagePath64Bit -ne $null) {
+  ls -Recurse -File bin_x64\runtimes | %{
+    $rel = [System.IO.Path]::GetRelativePath("$($pwd.Path)\bin_x64", $_.FullName)
+    $xml += "<file target=`"$($rel)`" src=`"$($_.FullName)`" />`n"
+  }
 }
 
 mkdir output\build -Force | Out-Null
