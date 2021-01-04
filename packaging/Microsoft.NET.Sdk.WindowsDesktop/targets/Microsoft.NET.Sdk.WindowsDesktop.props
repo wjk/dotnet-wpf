@@ -1,5 +1,5 @@
 <Project>
-  <ItemGroup Condition=" '$(_EnableWindowsDesktopGlobbing)' == 'true' ">
+  <ItemGroup>
     <ApplicationDefinition Include="App.xaml"
                            Condition="'$(EnableDefaultApplicationDefinition)' != 'false' And Exists('$(MSBuildProjectDirectory)/App.xaml') And '$(MSBuildProjectExtension)' == '.csproj'">
       <Generator>MSBuild:Compile</Generator>
