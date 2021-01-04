@@ -59,4 +59,7 @@ if (-not [System.IO.File]::Exists('nuget.exe')) {
   (New-Object System.Net.WebClient).DownloadFile('http://dist.nuget.org/win-x86-commandline/latest/nuget.exe', "$($pwd.Path)\nuget.exe")
 }
 
+# Remove all other nupkg files, so older ones won't be picked up by mistake.
+rm *.nupkg
+
 & "$($pwd.Path)\nuget.exe" pack wpf.nuspec
