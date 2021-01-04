@@ -191,20 +191,27 @@ namespace Microsoft.Build.Tasks.Windows
 #pragma warning disable 6500
             catch (Exception e)
             {
-                string message;
-                string errorId;
-
-                errorId = Log.ExtractMessageCode(e.Message, out message);
-
-                if (String.IsNullOrEmpty(errorId))
+                void LogException(Exception exception)
                 {
-                    errorId = UnknownErrorID;
-                    message = SR.Get(SRID.UnknownBuildError, message);
+                    string message;
+                    string errorId;
+
+                    errorId = Log.ExtractMessageCode(exception.Message, out message);
+
+                    if (String.IsNullOrEmpty(errorId))
+                    {
+                        errorId = UnknownErrorID;
+                        message = SR.Get(SRID.UnknownBuildError, message);
+                    }
+
+                    Log.LogError(null, errorId, null, null, 0, 0, 0, 0, message, null);
+
+                    _nErrors++;
                 }
 
-                Log.LogError(null, errorId, null, null, 0, 0, 0, 0, message, null);
-
-                _nErrors++;
+                LogException(e);
+                if (e.InnerException != null)
+                    LogException(e.InnerException);
             }
             catch // Non-CLS compliant errors
             {
