@@ -1,4 +1,6 @@
 param(
+    [int]$BuildNumberMajor = 0,
+    [int]$BuildNumberMinor = 1,
     [System.IO.FileInfo]$WorkDirectory,
 
     [System.IO.FileInfo]$SdkPackagePath,
@@ -51,8 +53,7 @@ $nuspec = $nuspec.Replace('%FILES%', $xml)
 $date = Get-Date
 $year = $date.Year - 2000
 
-$nuspec = $nuspec.Replace('%VERSION%', "1.0.$($year)$($date.Month.ToString('D2'))$($date.Day.ToString('D2'))." + `
-  "$($date.Hour.ToString('D2'))$($date.Minute.ToString('D2'))$($date.Second.ToString('D2'))")
+$nuspec = $nuspec.Replace('%VERSION%', "1.0.$($BuildNumberMajor).$($BuildNumberMinor))
 Set-Content wpf.nuspec $nuspec
 
 if (-not [System.IO.File]::Exists('nuget.exe')) {
