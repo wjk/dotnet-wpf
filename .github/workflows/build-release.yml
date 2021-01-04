@@ -60,5 +60,5 @@ jobs:
     - name: Push NuGet Package to Private Feed
       working-directory:
       run: |
-        dotnet nuget update source -s github -u wjk -p ${{ secrets.GITHUB_TOKEN }}
+        dotnet nuget add source -n github -s https://nuget.pkg.github.com/wjk/index.json -u wjk -p ${{ secrets.GITHUB_TOKEN }}
         dotnet nuget push artifacts\tmp\nuget\Sunburst.UpdatedWPF.${{ steps.create_nuget.outputs.version}}.nupkg -s github 
