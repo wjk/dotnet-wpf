@@ -1,6 +1,5 @@
 param(
-    [int]$BuildNumberMajor = 0,
-    [int]$BuildNumberMinor = 1,
+    [string]$VersionNumber = "",
     [System.IO.FileInfo]$WorkDirectory,
 
     [System.IO.FileInfo]$SdkPackagePath,
@@ -8,6 +7,10 @@ param(
     [System.IO.FileInfo]$BinaryPackagePath64Bit = $null,
     [System.IO.FileInfo]$NuspecTemplatePath
 )
+
+if ($VersionNumber -eq $null -or $VersionNumber -eq "") {
+  throw 'VersionNumber must be specified.'
+}
 
 mkdir $WorkDirectory.FullName -ErrorAction SilentlyContinue | Out-Null
 cd $WorkDirectory.FullName
@@ -50,10 +53,7 @@ copy $NuspecTemplatePath.FullName wpf.nuspec
 $nuspec = Get-Content wpf.nuspec
 $nuspec = $nuspec.Replace('%FILES%', $xml)
 
-$date = Get-Date
-$year = $date.Year - 2000
-
-$nuspec = $nuspec.Replace('%VERSION%', "1.0.$($BuildNumberMajor).$($BuildNumberMinor)")
+$nuspec = $nuspec.Replace('%VERSION%', $VersionNumber)
 Set-Content wpf.nuspec $nuspec
 
 if (-not [System.IO.File]::Exists('nuget.exe')) {
