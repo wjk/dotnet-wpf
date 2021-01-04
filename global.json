@@ -3,7 +3,6 @@
     "dotnet": "5.0.100",
     "runtimes": {
       "dotnet": [
-        "2.1.7",
         "$(VSRedistCommonNetCoreSharedFrameworkx6460PackageVersion)"
       ]
     },
