@@ -1,0 +1,64 @@
+name: Build Release
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      name: Clone
+
+    - uses: actions/setup-dotnet@v1
+      name: Install .NET Core
+      with:
+        dotnet-version: 5.0.100
+
+    - uses: microsoft/setup-msbuild@v1.0.2
+      name: Configure Visual Studio
+
+    - name: Build x86
+      working-directory: .
+      run: |
+        & .\build.bat -pack -bl -platform x86 -c Release
+ 
+    - name: Build x64
+      working-directory: .
+      run: |
+        & .\build.bat -pack -bl -platform x64 -c Release
+
+    - id: create_nuget
+      name: Create NuGet Package
+      working-directory: .
+      run: |
+        $ref = "${{ github.ref }}"
+        if ($ref.StartsWith("refs/tags/")) {
+            $ref = $ref.Replace("refs/tags/", "")
+        }
+
+        $version = [regex]::Replace($ref, '^v(\d+(?:\.\d+){1,2})(-.+)?$', '$1') 
+
+        .\eng\create-updatedwpf-nupkg.ps1 `
+          -VersionNumber $version `
+          -WorkDirectory artifacts\tmp\nupkg `
+          -SdkPackagePath artifacts\packages\Release\NonShipping\Microsoft.NET.Sdk.WindowsDesktop.5.0.0-dev.nupkg `
+          -BinaryPackagePath artifacts\packages\Release\NonShipping\runtime.win-x86.Microsoft.DotNet.Wpf.GitHub.5.0.0-dev.nupkg `
+          -BinaryPackagePath64Bit artifacts\packages\Release\NonShipping\runtime.win-x64.Microsoft.DotNet.Wpf.GitHub.5.0.0-dev.nupkg `
+          -NuspecTemplatePath eng\Sunburst.UpdatedWPF.nuspec
+
+        echo "::set-output name=version::$version"
+
+    - name: Upload NuGet Package to Release
+      uses: actions/upload-release-asset@v4
+      with:
+        name: Sunburst.UpdatedWPF.${{ steps.create_nuget.outputs.version}}.nupkg
+        path: artifacts\tmp\nuget\Sunburst.UpdatedWPF.${{ steps.create_nuget.outputs.version}}.nupkg
+
+    - name: Push NuGet Package to Private Feed
+      working-directory:
+      run: |
+        dotnet nuget update source -s github -u wjk -p ${{ secrets.GITHUB_TOKEN }}
+        dotnet nuget push artifacts\tmp\nuget\Sunburst.UpdatedWPF.${{ steps.create_nuget.outputs.version}}.nupkg -s github 
