@@ -1186,7 +1186,7 @@ Cleanup:
 //      Set new state (Validate in debug)
 //
 //------------------------------------------------------------------------------
-MIL_FORCEINLINE void
+void
 CDesktopRenderTarget::TransitionToState(
     enum State eNewState
 #if DBG
