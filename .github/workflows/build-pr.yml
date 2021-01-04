@@ -23,12 +23,12 @@ jobs:
     - name: Build x86
       working-directory: .
       run: |
-        & .\build.bat -pack -bl -platform x86
+        & .\build.cmd -pack -bl -platform x86
  
     - name: Build x64
       working-directory: .
       run: |
-        & .\build.bat -pack -bl -platform x64
+        & .\build.cmd -pack -bl -platform x64
 
     - name: Create NuGet Package
       working-directory: .
