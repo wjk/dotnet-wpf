@@ -42,7 +42,11 @@ typedef FLOAT REAL;
 //
 //--------------------------------------------------------------------------
 
-#define MIL_FORCEINLINE /* nothing */
+#if DBG
+#define MIL_FORCEINLINE inline
+#else // !DBG
+#define MIL_FORCEINLINE __forceinline
+#endif // !DBG
 
 //--------------------------------------------------------------------------
 // Primitive data types
