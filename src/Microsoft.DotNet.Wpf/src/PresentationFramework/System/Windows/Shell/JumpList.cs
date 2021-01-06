@@ -954,7 +954,7 @@ namespace System.Windows.Shell
 
                 if (jumpTask.FlagsToEnable != null)
                 {
-                    var shellLinkDataList = (ShellLinkDataList)link;
+                    var shellLinkDataList = (IShellLinkDataList)link;
                     shellLinkDataList.GetFlags(out UInt32 flags);
                     foreach (var flagToEnable in jumpTask.FlagsToEnable)
                     {
