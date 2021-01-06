@@ -252,7 +252,7 @@ function InstallDotNet([string] $dotnetRoot,
   if ($noPath) { $installParameters.NoPath = $True }
 
   try {
-    & $installScript @installParameters
+    & $installScript @installParameters 6> $null
   }
   catch {
     if ($runtimeSourceFeed -or $runtimeSourceFeedKey) {
@@ -266,7 +266,7 @@ function InstallDotNet([string] $dotnetRoot,
       }
 
       try {
-        & $installScript @installParameters
+        & $installScript @installParameters 6> $null
       }
       catch {
         Write-PipelineTelemetryError -Category 'InitializeToolset' -Message "Failed to install dotnet from custom location '$runtimeSourceFeed'."
