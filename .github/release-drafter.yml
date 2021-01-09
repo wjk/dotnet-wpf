@@ -1,7 +1,11 @@
 template: |
-    # What’s New in MSI Viewer $RESOLVED_VERSION
+    # What’s New in Sunburst.UpdatedWPF $RESOLVED_VERSION
 
     $CHANGES
+
+    -----
+
+    Sunburst.WPF follows semantic versioning.
 
 categories:
     - title: '🚀 Features'
