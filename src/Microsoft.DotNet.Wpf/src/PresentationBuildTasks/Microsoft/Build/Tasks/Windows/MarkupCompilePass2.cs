@@ -328,6 +328,11 @@ namespace Microsoft.Build.Tasks.Windows
             set { _xamlDebuggingInformation = value; }
         }
 
+        ///<summary>
+        /// Support custom IntermediateOutputPath and BaseIntermediateOutputPath outside the project path
+        ///</summary>
+        public bool SupportCustomOutputPaths { get; set; } = false;
+
         /// <summary>
         /// Known reference paths hold referenced assemblies which are never changed during the build procedure.
         /// such as references in GAC, in framework directory or framework SDK directory etc.
@@ -485,7 +490,7 @@ namespace Microsoft.Build.Tasks.Windows
         //
         // return value:
         //
-        //    If cache doesn't exist, or both LocalAppDef and LocallXaml Pages do not exist, return false
+        //    If cache doesn't exist, or both LocalAppDef and LocalXaml Pages do not exist, return false
         //    to indicate no further work required.
         //    otherwise, return true.
         //
@@ -603,8 +608,8 @@ namespace Microsoft.Build.Tasks.Windows
             }
 
             //
-            // Generate the asmmebly reference list.
-            // The temporay target assembly should have been added into Reference list from target file.
+            // Generate the assembly reference list.
+            // The temporary target assembly should have been added into Reference list from target file.
             //
             if (References != null && References.Length > 0)
             {
@@ -640,7 +645,7 @@ namespace Microsoft.Build.Tasks.Windows
 
             try
             {
-                compilerWrapper = TaskHelper.CreateCompilerWrapper(AlwaysCompileMarkupFilesInSeparateDomain, ref appDomain);
+                compilerWrapper = TaskHelper.CreateCompilerWrapper();
 
                 if (compilerWrapper != null)
                 {
@@ -650,6 +655,8 @@ namespace Microsoft.Build.Tasks.Windows
                     compilerWrapper.TaskLogger = Log;
                     compilerWrapper.UnknownErrorID = UnknownErrorID;
                     compilerWrapper.XamlDebuggingInformation = XamlDebuggingInformation;
+
+                    compilerWrapper.SupportCustomOutputPaths = SupportCustomOutputPaths;
 
                     compilerWrapper.TaskFileService = _taskFileService;
 
@@ -701,7 +708,10 @@ namespace Microsoft.Build.Tasks.Windows
 
                 if (appDomain != null)
                 {
+                    // AppDomains are not supported on .NET Core.  'AppDomain.Unload' will always throw `CannotUnloadAppDomainException`.  
+                    #pragma warning disable SYSLIB0024
                     AppDomain.Unload(appDomain);
+                    #pragma warning restore SYSLIB0024
                     compilerWrapper = null;
                 }
             }

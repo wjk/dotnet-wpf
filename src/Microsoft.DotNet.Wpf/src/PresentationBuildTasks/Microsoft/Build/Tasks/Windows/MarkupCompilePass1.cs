@@ -595,6 +595,11 @@ namespace Microsoft.Build.Tasks.Windows
         }
 
         ///<summary>
+        /// Support custom IntermediateOutputPath and BaseIntermediateOutputPath outside the project path
+        ///</summary>
+        public bool SupportCustomOutputPaths { get; set; } = false;
+
+        ///<summary>
         /// Generated source code files for the given programing language.
         ///</summary>
         [Output]
@@ -1222,7 +1227,7 @@ namespace Microsoft.Build.Tasks.Windows
 
             try
             {
-                compilerWrapper = TaskHelper.CreateCompilerWrapper(AlwaysCompileMarkupFilesInSeparateDomain, ref appDomain);
+                compilerWrapper = TaskHelper.CreateCompilerWrapper();
 
                 if (compilerWrapper != null)
                 {
@@ -1245,6 +1250,8 @@ namespace Microsoft.Build.Tasks.Windows
                     }
 
                     compilerWrapper.ContentFiles = CompilerAnalyzer.ContentFiles;
+
+                    compilerWrapper.SupportCustomOutputPaths = SupportCustomOutputPaths;
 
                     // Process Reference list here.
                     ArrayList referenceList = ProcessReferenceList();
@@ -1277,7 +1284,11 @@ namespace Microsoft.Build.Tasks.Windows
                     {
                         // Better GC behavior in 4.6 and later when wrapped in Task.Run().
                         // Inside of VisualStudio, when DesignTimeMarkupCompilation happens, it uses MarkupCompilePass1 only (not Pass2).
+
+                        // AppDomains are not supported on .NET Core.  'AppDomain.Unload' will always throw `CannotUnloadAppDomainException`.  
+                        #pragma warning disable SYSLIB0024
                         AppDomain.Unload(appDomain);
+                        #pragma warning restore SYSLIB0024
                     });
                 }
 
